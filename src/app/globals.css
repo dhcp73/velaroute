@@ -3,26 +3,26 @@
 @custom-variant dark (&:where(.dark, .dark *));
 
 @theme {
-  --font-sans: var(--font-plex), ui-sans-serif, system-ui, -apple-system, "Segoe UI", sans-serif;
-  --font-display: var(--font-plex), ui-sans-serif, system-ui, sans-serif;
+  --font-sans: var(--font-jakarta), ui-sans-serif, system-ui, -apple-system, "Segoe UI", sans-serif;
+  --font-display: var(--font-jakarta), ui-sans-serif, system-ui, sans-serif;
   --font-mono: ui-monospace, "SF Mono", Menlo, monospace;
 
-  /* Paper, ink and a single copper signal. Status colours are semantic only. */
-  --color-primary-50: #faf3ec;
-  --color-primary-100: #f1e3d5;
-  --color-primary-200: #e6cbb0;
-  --color-primary-300: #cfa67c;
-  --color-primary-400: #b78351;
-  --color-primary-500: #985a30;
-  --color-primary-600: #814923;
-  --color-primary-700: #6c3e22;
-  --color-primary-800: #57321e;
-  --color-primary-900: #402719;
-  --color-sky-soft: #eeeee8;
-  --color-mint-soft: #eeeee8;
-  --color-peach-soft: #eeeee8;
-  --color-rose-soft: #eeeee8;
-  --color-amber-soft: #eeeee8;
+  /* White, charcoal and a precise dark orange. Status colours remain semantic. */
+  --color-primary-50: #fff5f1;
+  --color-primary-100: #ffebe3;
+  --color-primary-200: #ffd1bd;
+  --color-primary-300: #fda27f;
+  --color-primary-400: #f7764c;
+  --color-primary-500: #cf3f16;
+  --color-primary-600: #b93411;
+  --color-primary-700: #992b10;
+  --color-primary-800: #7d260f;
+  --color-primary-900: #60200e;
+  --color-sky-soft: #f3f4f6;
+  --color-mint-soft: #f3f4f6;
+  --color-peach-soft: #f3f4f6;
+  --color-rose-soft: #f3f4f6;
+  --color-amber-soft: #f3f4f6;
 
   --color-bg: var(--bg);
   --color-surface: var(--surface);
@@ -34,36 +34,36 @@
 }
 
 :root {
-  --bg: #f7f6f2;
+  --bg: #ffffff;
   --surface: #ffffff;
-  --surface-2: #efeee8;
-  --line: #deddd5;
-  --ink: #191918;
-  --muted: #62625a;
-  --faint: #74746b;
+  --surface-2: #f7f8fa;
+  --line: #e5e7eb;
+  --ink: #17191c;
+  --muted: #5b626d;
+  --faint: #69717e;
   color-scheme: light;
 }
 .dark {
-  --bg: #141413;
-  --surface: #1c1c1a;
-  --surface-2: #252522;
-  --line: #393934;
-  --ink: #f2f1ea;
-  --muted: #b3b3a8;
-  --faint: #8c8c80;
+  --bg: #101216;
+  --surface: #181b20;
+  --surface-2: #22262d;
+  --line: #343a44;
+  --ink: #f7f8fa;
+  --muted: #b2b8c2;
+  --faint: #8e97a5;
   color-scheme: dark;
 }
 
 html { -webkit-text-size-adjust: 100%; }
 body { background: var(--bg); color: var(--ink); font-family: var(--font-sans); -webkit-font-smoothing: antialiased; }
 @layer base { * { border-color: var(--line); } }
-::selection { background: #e6cbb0; color: #191918; }
-:focus-visible { outline: 2px solid #985a30; outline-offset: 2px; border-radius: 6px; }
+::selection { background: #ffd1bd; color: #17191c; }
+:focus-visible { outline: 2px solid #cf3f16; outline-offset: 2px; border-radius: 6px; }
 
-.card { min-width: 0; background: var(--surface); border: 1px solid var(--line); border-radius: 10px; }
-.chip { display: inline-flex; align-items: center; gap: 6px; border-radius: 4px; padding: 2px 7px; font-size: 12px; font-weight: 500; line-height: 20px; white-space: nowrap; }
+.card { min-width: 0; background: var(--surface); border: 1px solid var(--line); border-radius: 14px; }
+.chip { display: inline-flex; align-items: center; gap: 6px; border-radius: 999px; padding: 2px 9px; font-size: 12px; font-weight: 500; line-height: 20px; white-space: nowrap; }
 .input { min-width: 0; width: 100%; border: 1px solid var(--line); background: var(--surface); color: var(--ink); border-radius: 6px; padding: 8px 12px; font-size: 14px; line-height: 20px; transition: border-color .15s, box-shadow .15s; }
-.input:focus { outline: none; border-color: #985a30; box-shadow: 0 0 0 3px rgba(152,90,48,.12); }
+.input:focus { outline: none; border-color: #cf3f16; box-shadow: 0 0 0 3px rgba(207,63,22,.12); }
 .label { display: block; font-size: 13px; font-weight: 500; color: var(--muted); margin-bottom: 6px; }
 .scrollbar-thin { scrollbar-width: thin; }
 .no-scrollbar::-webkit-scrollbar { display: none; } .no-scrollbar { scrollbar-width: none; }
@@ -77,15 +77,15 @@ body { background: var(--bg); color: var(--ink); font-family: var(--font-sans); 
 }
 .prose :where(img) { border-radius: 14px; border: 1px solid var(--line); }
 
-/* Editorial marketing; the workspace remains compact, sans-serif and task-first. */
+/* A single modern grotesque throughout marketing, auth and the workspace. */
 .marketing h1, .marketing h2, .auth-layout h1, .auth-layout h2 {
-  font-family: var(--font-editorial), Georgia, serif;
-  font-weight: 400;
-  letter-spacing: -.025em;
-  line-height: 1.06;
+  font-family: var(--font-sans);
+  font-weight: 700;
+  letter-spacing: -.045em;
+  line-height: 1.12;
 }
-.marketing h1 em, .marketing h2 em { font-weight: inherit; }
-.marketing .editorial-emphasis { font-style: italic; }
+.marketing h2 { font-weight: 600; letter-spacing: -.035em; }
+.marketing .editorial-emphasis { color: var(--color-primary-500); font-style: normal; }
 .marketing h3 { letter-spacing: -.015em; }
 .marketing .card { box-shadow: none; }
 .marketing .feature-icon { background: transparent; color: var(--ink); border-radius: 0; justify-items: start; }
@@ -96,8 +96,8 @@ body { background: var(--bg); color: var(--ink); font-family: var(--font-sans); 
 .app-shell .card { box-shadow: 0 1px 2px rgb(0 0 0 / .025); }
 .app-shell main, .app-shell .grid > * { min-width: 0; }
 .app-shell .input { background: var(--surface); }
-.product-frame { box-shadow: 0 24px 55px -30px rgb(26 25 20 / .3); }
+.product-frame { box-shadow: 0 20px 70px -35px rgb(24 32 48 / .25); }
 @media (max-width: 640px) {
-  .marketing h1 { font-size: 2.8rem; }
-  .marketing h2 { font-size: 2.15rem; }
+  .marketing h1 { font-size: 2.65rem; }
+  .marketing h2 { font-size: 2.1rem; }
 }

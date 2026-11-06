@@ -1,10 +1,9 @@
 import type { Metadata, Viewport } from "next";
-import { IBM_Plex_Sans, Instrument_Serif } from "next/font/google";
+import { Plus_Jakarta_Sans } from "next/font/google";
 import { ThemeProvider } from "next-themes";
 import "./globals.css";
 
-const plex = IBM_Plex_Sans({ subsets: ["latin"], weight: ["400", "500", "600", "700"], variable: "--font-plex", display: "swap" });
-const serif = Instrument_Serif({ subsets: ["latin"], weight: "400", style: ["normal", "italic"], variable: "--font-editorial", display: "swap" });
+const jakarta = Plus_Jakarta_Sans({ subsets: ["latin"], weight: ["400", "500", "600", "700", "800"], variable: "--font-jakarta", display: "swap" });
 
 export const metadata: Metadata = {
   metadataBase: new URL(process.env.PUBLIC_URL || "http://localhost:3300"),
@@ -13,11 +12,11 @@ export const metadata: Metadata = {
   icons: { icon: "/favicon.svg" },
   openGraph: { title: "Velaroute — the agentic inbound engine", description: "Every inbound lead, to the right rep, in minutes.", images: ["/og.png"] },
 };
-export const viewport: Viewport = { themeColor: [{ media: "(prefers-color-scheme: light)", color: "#f7f6f2" }, { media: "(prefers-color-scheme: dark)", color: "#141413" }] };
+export const viewport: Viewport = { themeColor: [{ media: "(prefers-color-scheme: light)", color: "#ffffff" }, { media: "(prefers-color-scheme: dark)", color: "#101216" }] };
 
 export default function RootLayout({ children }: { children: React.ReactNode }) {
   return (
-    <html lang="en" suppressHydrationWarning className={`${plex.variable} ${serif.variable}`}>
+    <html lang="en" suppressHydrationWarning className={`${jakarta.variable}`}>
       <body>
         <ThemeProvider attribute="class" defaultTheme="light" enableSystem={false} disableTransitionOnChange>
           {children}

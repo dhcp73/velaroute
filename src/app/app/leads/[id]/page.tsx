@@ -52,7 +52,7 @@ export default function LeadPage() {
       <Link href="/app/inbox" className="mb-4 inline-flex items-center gap-1.5 text-sm text-muted hover:text-ink"><ArrowLeft className="h-4 w-4" />Inbox</Link>
       <div className="mb-6 flex flex-wrap items-start justify-between gap-4">
         <div className="flex min-w-0 items-center gap-4">
-          <Avatar name={lead.name} size={52} color="#b78351" />
+          <Avatar name={lead.name} size={52} color="#f7764c" />
           <div className="min-w-0">
             <h1 className="truncate font-display text-2xl font-semibold tracking-tight">{lead.name}</h1>
             <p className="truncate text-sm text-muted">{[lead.title, lead.company || lead.domain].filter(Boolean).join(" · ")}</p>

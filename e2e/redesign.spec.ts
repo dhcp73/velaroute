@@ -33,17 +33,19 @@ for (const width of [375, 1280]) {
   });
 }
 
-test("new typography, paper tokens and dark mode render", async ({ page }) => {
+test("modern sans, white/orange tokens and dark mode render", async ({ page }) => {
   await page.goto(baseURL);
-  await expect(page.locator("h1")).toContainText("clear route");
+  await expect(page.locator("h1")).toContainText("clear next step");
   await page.evaluate(() => document.fonts.ready);
-  expect(await page.locator("h1").evaluate((el) => getComputedStyle(el).fontFamily)).toContain("Instrument");
-  expect(await page.locator("body").evaluate((el) => getComputedStyle(el).fontFamily)).toContain("IBM");
-  expect(await page.locator("html").evaluate((el) => getComputedStyle(el).getPropertyValue("--bg").trim())).toBe("#f7f6f2");
+  expect(await page.locator("h1").evaluate((el) => getComputedStyle(el).fontFamily)).toContain("Plus Jakarta Sans");
+  expect(await page.locator("body").evaluate((el) => getComputedStyle(el).fontFamily)).toContain("Plus Jakarta Sans");
+  await expect(page.locator("body")).toHaveCSS("background-color", "rgb(255, 255, 255)");
+  await expect(page.getByRole("link", { name: "Start free for 14 days", exact: true })).toHaveCSS("background-color", "rgb(207, 63, 22)");
+  expect(await page.locator("h1").evaluate((el) => getComputedStyle(el).fontStyle)).toBe("normal");
   await page.evaluate(() => localStorage.setItem("theme", "dark"));
   await page.reload();
   await expect(page.locator("html")).toHaveClass(/dark/);
-  expect(await page.locator("html").evaluate((el) => getComputedStyle(el).getPropertyValue("--bg").trim())).toBe("#141413");
+  await expect(page.locator("body")).toHaveCSS("background-color", "rgb(16, 18, 22)");
 });
 
 test("mobile navigation opens and routes", async ({ page }) => {

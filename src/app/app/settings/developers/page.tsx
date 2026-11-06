@@ -43,7 +43,7 @@ export default function Developers() {
         )}
         <div className="border-t border-line px-5 py-4">
           <p className="mb-2 text-xs font-medium text-muted">Quick start</p>
-          <pre className="overflow-x-auto rounded-lg bg-[#20211e] p-4 text-xs leading-relaxed text-[#e2dfd5]">{`curl -X POST ${origin}/api/v1/leads \\
+          <pre className="overflow-x-auto rounded-lg bg-[#17191c] p-4 text-xs leading-relaxed text-[#e9edf2]">{`curl -X POST ${origin}/api/v1/leads \\
   -H "Authorization: Bearer $VELAROUTE_KEY" -H "Content-Type: application/json" \\
   -d '{"email":"maya@kestrel.ai","name":"Maya Brooks","title":"Head of Revenue"}'`}</pre>
         </div>
@@ -79,7 +79,7 @@ export default function Developers() {
           <div>
             <Field label="Endpoint" htmlFor="mcp-url"><div className="flex gap-2"><Input id="mcp-url" readOnly value={`${origin}/api/mcp`} /><Button variant="secondary" icon={<Copy className="h-4 w-4" />} onClick={() => copy(`${origin}/api/mcp`)}>Copy</Button></div></Field>
             <p className="label mt-4">Client config</p>
-            <pre className="overflow-x-auto rounded-lg bg-[#20211e] p-4 text-xs text-[#e2dfd5]">{mcpConfig}</pre>
+            <pre className="overflow-x-auto rounded-lg bg-[#17191c] p-4 text-xs text-[#e9edf2]">{mcpConfig}</pre>
             <Button size="sm" variant="ghost" className="mt-2" icon={<Copy className="h-4 w-4" />} onClick={() => copy(mcpConfig)}>Copy config</Button>
           </div>
           <div>

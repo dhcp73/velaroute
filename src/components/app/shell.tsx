@@ -78,7 +78,7 @@ function Palette({ open, onClose }: { open: boolean; onClose: () => void }) {
   const go = (href: string) => { onClose(); router.push(href); };
   return (
     <div className="fixed inset-0 z-[110] flex items-start justify-center p-4 pt-[12vh]" role="dialog" aria-modal="true" aria-label="Search">
-      <div className="absolute inset-0 bg-[#141413]/40" onClick={onClose} />
+      <div className="absolute inset-0 bg-[#101216]/40" onClick={onClose} />
       <div className="relative w-full max-w-lg overflow-hidden rounded-xl border border-line bg-surface shadow-2xl">
         <div className="flex items-center gap-2 border-b border-line px-4">
           <Search className="h-4 w-4 text-faint" aria-hidden />
@@ -188,7 +188,7 @@ export function AppShell({ children }: { children: ReactNode }) {
       </aside>
       {drawer && (
         <div className="fixed inset-0 z-[90] lg:hidden" role="dialog" aria-modal="true" aria-label="Navigation">
-          <div className="absolute inset-0 bg-[#141413]/40" onClick={() => setDrawer(false)} />
+          <div className="absolute inset-0 bg-[#101216]/40" onClick={() => setDrawer(false)} />
           <div className="absolute inset-y-0 left-0 flex w-72 max-w-[85vw] flex-col bg-surface px-3 py-4 shadow-2xl">
             <div className="mb-6 flex items-center justify-between px-2"><span className="flex items-center gap-2 font-display font-semibold"><LogoMark />Velaroute</span><button type="button" onClick={() => setDrawer(false)} className="rounded-full p-2 hover:bg-surface-2" aria-label="Close menu"><X className="h-5 w-5" /></button></div>
             <div className="min-h-0 flex-1 overflow-y-auto"><NavList onNavigate={() => setDrawer(false)} /></div>

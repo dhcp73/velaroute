@@ -27,7 +27,7 @@ export function ChatWidget() {
         {open && (
           <motion.div initial={{ opacity: 0, y: 16, scale: 0.97 }} animate={{ opacity: 1, y: 0, scale: 1 }} exit={{ opacity: 0, y: 16, scale: 0.97 }} transition={{ duration: 0.2 }}
             className="w-[min(calc(100vw-40px),360px)] overflow-hidden rounded-xl border border-line bg-surface shadow-2xl" role="dialog" aria-label="Chat with sales">
-            <div className="bg-[#20211e] px-5 py-4 text-white"><p className="font-semibold">Talk to sales</p><p className="text-sm text-white/85">Routed to the right person in seconds.</p></div>
+            <div className="bg-[#17191c] px-5 py-4 text-white"><p className="font-semibold">Talk to sales</p><p className="text-sm text-white/85">Routed to the right person in seconds.</p></div>
             {res ? (
               <div className="p-5 text-sm">
                 {res.owner ? <><p><b>{res.owner.name}</b> ({res.owner.title}) has your message and will reply by email shortly.</p>{res.slots[0] && <p className="mt-2 text-muted">Prefer a call? {res.owner.name.split(" ")[0]} is free {new Intl.DateTimeFormat("en-GB", { weekday: "long", hour: "2-digit", minute: "2-digit" }).format(new Date(res.slots[0].start))}.</p>}</> : <p>Thanks — the team will be in touch.</p>}

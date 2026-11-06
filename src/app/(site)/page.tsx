@@ -14,27 +14,23 @@ export const metadata: Metadata = { title: "Velaroute — the agentic inbound en
 export default function Home() {
   return (
     <>
-      <section className="relative overflow-hidden">
-        <div className="relative mx-auto max-w-7xl px-5 pb-16 pt-12 sm:px-8 sm:pt-20">
-          <Reveal className="mx-auto max-w-6xl text-left">
-            <Link href="/changelog" className="inline-flex max-w-full items-center gap-2 border-b border-line pb-3 text-xs font-medium uppercase tracking-wide text-muted hover:text-ink">
-              <span className="text-primary-600">New</span><span className="truncate">MCP server & SLA auto re-routing</span><ArrowRight className="h-3.5 w-3.5 shrink-0" />
+      <section className="overflow-hidden bg-bg">
+        <div className="mx-auto max-w-7xl px-5 pb-16 pt-12 sm:px-8 sm:pt-20">
+          <Reveal className="mx-auto max-w-4xl text-center">
+            <Link href="/changelog" className="inline-flex max-w-full items-center gap-2 rounded-full border border-line bg-surface-2 px-3 py-1.5 text-xs font-medium text-muted hover:text-primary-600">
+              <span className="h-1.5 w-1.5 shrink-0 rounded-full bg-primary-500" /><span className="truncate">MCP server &amp; SLA auto re-routing</span><ArrowRight className="h-3.5 w-3.5 shrink-0" />
             </Link>
-            <div className="mt-6 grid items-end gap-8 lg:grid-cols-[1.15fr_1fr] lg:gap-14">
-            <h1 className="text-balance font-display text-[3rem] leading-[1.02] tracking-tight sm:text-[5.5rem]">
-              Good leads deserve a <em>clear route.</em>
+            <h1 className="mt-7 text-balance font-display text-[3.1rem] leading-[1.08] tracking-tight sm:text-[4.75rem] lg:text-[5.4rem]">
+              Every lead.<br />A <span className="text-primary-500">clear next step.</span>
             </h1>
-            <div>
-            <p className="max-w-2xl text-pretty text-lg leading-relaxed text-muted">Capture, qualify and route your inbound leads. Give every rep a clear next step — and see why each lead went where it did.</p>
-            <div className="mt-8 flex flex-col items-start gap-3 sm:flex-row">
-              <Link href="/signup" className={buttonClass("primary", "lg", "w-full sm:w-auto lg:px-4 lg:text-sm")}>Start free for 14 days<ArrowRight className="h-4 w-4" /></Link>
-              <Link href="/login?demo=1" className={buttonClass("secondary", "lg", "w-full sm:w-auto lg:px-4 lg:text-sm")}><Play className="h-4 w-4" />Open the live demo</Link>
+            <p className="mx-auto mt-6 max-w-2xl text-pretty text-lg leading-relaxed text-muted">Capture, qualify and route inbound leads in one workspace. Get the right person on the next conversation, with every decision explained.</p>
+            <div className="mt-8 flex flex-col items-center justify-center gap-3 sm:flex-row">
+              <Link href="/signup" className={buttonClass("primary", "lg", "w-full sm:w-auto")}>Start free for 14 days<ArrowRight className="h-4 w-4" /></Link>
+              <Link href="/login?demo=1" className={buttonClass("secondary", "lg", "w-full sm:w-auto")}><Play className="h-4 w-4" />Open the live demo</Link>
             </div>
-            <ul className="mt-6 flex flex-wrap items-center gap-x-5 gap-y-2 text-sm text-muted">
-              {["No card required", "Sandbox mode, no API keys needed", "Set up in an afternoon"].map((t) => <li key={t} className="inline-flex items-center gap-1.5"><Check className="h-4 w-4 text-primary-500" />{t}</li>)}
+            <ul className="mt-6 flex flex-wrap items-center justify-center gap-x-5 gap-y-2 text-xs text-muted">
+              {["No card required", "Sandbox mode, no API keys needed", "Set up in an afternoon"].map((t) => <li key={t} className="inline-flex items-center gap-1.5"><Check className="h-3.5 w-3.5 text-primary-500" />{t}</li>)}
             </ul>
-            </div>
-            </div>
           </Reveal>
           <Reveal delay={0.15} className="mt-12 sm:mt-14"><HeroPreview /></Reveal>
         </div>
@@ -66,8 +62,8 @@ export default function Home() {
       <Section>
         <SectionTitle eyebrow="Platform" title="Everything inbound, in one place" sub="Capture to closed loop, without stitching five tools together." />
         <div className="mt-12 grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
-          {FEATURES.slice(0, 9).map((f, i) => (
-            <Reveal key={f.title} delay={(i % 3) * 0.06} className="card group p-6">
+          {FEATURES.slice(0, 6).map((f, i) => (
+            <Reveal key={f.title} delay={(i % 3) * 0.06} className="card group p-6 sm:p-7">
               <span className={`feature-icon grid h-9 w-9 place-items-center ${f.tone}`}><f.icon className="h-5 w-5" /></span>
               <h3 className="mt-4 font-display text-lg font-semibold">{f.title}</h3>
               <p className="mt-2 text-sm text-muted">{f.text}</p>
@@ -85,10 +81,10 @@ export default function Home() {
             </ul>
           </Reveal>
           <Reveal delay={0.1}>
-            <div className="overflow-hidden rounded-xl border border-line bg-[#20211e] p-5 font-mono text-[12.5px] leading-6 text-[#e2dfd5] shadow-2xl">
-              <p className="text-[#a4a49b]">{"// trace · lead_8f2k · Maya Brooks"}</p>
+            <div className="overflow-hidden rounded-xl border border-line bg-[#17191c] p-5 font-mono text-[12.5px] leading-6 text-[#e9edf2] shadow-2xl">
+              <p className="text-[#9aa3af]">{"// trace · lead_8f2k · Maya Brooks"}</p>
               {[["guard", "risk 0 · pass · 41s fill time"], ["enrich", "apollo · 75 emp · DE · $0.05"], ["match", "kestrel.ai · no owner"], ["icp", "score 82 · SaaS, 51–200, EMEA"], ["route", "rule “EMEA territory”"], ["  rr", "skip Liam (away) → Jonas"], ["book", "Thu 14:30 Europe/Berlin"], ["crm", "hubspot.upsert contact ✓"], ["sla", "first touch due 14:05:12"]].map(([k, v]) => (
-                <p key={k} className="truncate"><span className="text-[#cfa67c]">{k.padEnd(7, " ")}</span><span className="text-[#a4a49b]">→ </span>{v}</p>
+                <p key={k} className="truncate"><span className="text-[#fda27f]">{k.padEnd(7, " ")}</span><span className="text-[#9aa3af]">→ </span>{v}</p>
               ))}
             </div>
           </Reveal>

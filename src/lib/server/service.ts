@@ -114,7 +114,7 @@ export async function runAction(ws: Workspace, a: Action, actor: string, now = n
       const existing = a.rep.id ? ws.reps.find((r) => r.id === a.rep.id) : undefined;
       const clean = { ...a.rep, weight: Math.max(0, Math.min(10, Number(a.rep.weight ?? 1))), capacityPerDay: Math.max(1, Number(a.rep.capacityPerDay ?? 30)) };
       if (existing) Object.assign(existing, clean);
-      else ws.reps.push({ id: uid("rep"), title: "Account Executive", team: "smb", region: "NA", available: true, timezone: "America/New_York", workStart: 9, workEnd: 17, calendar: "none", color: ["#985a30", "#747d83", "#63786a", "#a08858", "#817378", "#987455"][ws.reps.length % 6], ...clean } as Rep);
+      else ws.reps.push({ id: uid("rep"), title: "Account Executive", team: "smb", region: "NA", available: true, timezone: "America/New_York", workStart: 9, workEnd: 17, calendar: "none", color: ["#cf3f16", "#64748b", "#537563", "#b37a18", "#7c6a79", "#8a6456"][ws.reps.length % 6], ...clean } as Rep);
       audit("team", `${existing ? "Updated" : "Added"} ${a.rep.name}`);
       break;
     }

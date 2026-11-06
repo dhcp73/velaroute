@@ -25,7 +25,7 @@ export default async function DocPage({ params }: P) {
       <article className="min-w-0">
         <h1 className="font-display text-4xl font-semibold tracking-tight">{doc.title}</h1>
         <p className="mt-3 text-lg text-muted">{doc.description}</p>
-        <div className="prose mt-8 max-w-none dark:prose-invert prose-headings:scroll-mt-24 prose-a:text-primary-600 dark:prose-a:text-primary-300 prose-pre:overflow-x-auto prose-pre:rounded-lg prose-pre:bg-[#20211e] prose-table:block prose-table:overflow-x-auto prose-figcaption:text-center" dangerouslySetInnerHTML={{ __html: doc.html }} />
+        <div className="prose mt-8 max-w-none dark:prose-invert prose-headings:scroll-mt-24 prose-a:text-primary-600 dark:prose-a:text-primary-300 prose-pre:overflow-x-auto prose-pre:rounded-lg prose-pre:bg-[#17191c] prose-table:block prose-table:overflow-x-auto prose-figcaption:text-center" dangerouslySetInnerHTML={{ __html: doc.html }} />
         <div className="mt-12 grid gap-3 border-t border-line pt-6 sm:grid-cols-2">
           {prev ? <Link href={`/docs/${prev.slug}`} className="card flex items-center gap-2 p-4 text-sm hover:bg-surface-2"><ArrowLeft className="h-4 w-4" /><span><span className="block text-faint">Previous</span>{prev.title}</span></Link> : <span />}
           {next && <Link href={`/docs/${next.slug}`} className="card flex items-center justify-end gap-2 p-4 text-right text-sm hover:bg-surface-2"><span><span className="block text-faint">Next</span>{next.title}</span><ArrowRight className="h-4 w-4" /></Link>}

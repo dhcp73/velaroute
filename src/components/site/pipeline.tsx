@@ -39,7 +39,7 @@ export function PipelineFlow({ compact = false }: { compact?: boolean }) {
       </div>
       <motion.div key={cur} initial={reduce ? false : { opacity: 0, y: 8 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.35 }} className="mt-4 flex flex-col gap-2 rounded-lg border border-line bg-surface/80 p-4 backdrop-blur sm:flex-row sm:items-center sm:justify-between" aria-live="polite">
         <p className="text-sm"><span className="font-semibold">{STAGES[cur].name}.</span> <span className="text-muted">{STAGES[cur].text}</span></p>
-        <code className="min-w-0 break-words rounded-md bg-[#20211e] px-3 py-1.5 text-xs text-[#e2dfd5]">{STAGES[cur].out}</code>
+        <code className="min-w-0 break-words rounded-md bg-[#17191c] px-3 py-1.5 text-xs text-[#e9edf2]">{STAGES[cur].out}</code>
       </motion.div>
     </div>
   );

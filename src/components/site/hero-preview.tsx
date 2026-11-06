@@ -4,10 +4,10 @@ import { useEffect, useState } from "react";
 import { CheckCircle2, Sparkles } from "lucide-react";
 
 const ROWS = [
-  { n: "Maya Brooks", c: "Kestrel AI", o: "Jonas", col: "#8b7358", s: "4:12", t: "violet" },
-  { n: "Ethan Kim", c: "Quill", o: "Ava", col: "#655d4d", s: "1:03", t: "amber" },
-  { n: "Leo Tanaka", c: "Harbor Cloud", o: "Priya", col: "#63786a", s: "2m", t: "mint" },
-  { n: "Grace Okafor", c: "OrbitPay", o: "Sofia", col: "#686963", s: "Booked", t: "mint" },
+  { n: "Maya Brooks", c: "Kestrel AI", o: "Jonas", col: "#cf3f16", s: "4:12", t: "violet" },
+  { n: "Ethan Kim", c: "Quill", o: "Ava", col: "#6e7785", s: "1:03", t: "amber" },
+  { n: "Leo Tanaka", c: "Harbor Cloud", o: "Priya", col: "#537563", s: "2m", t: "mint" },
+  { n: "Grace Okafor", c: "OrbitPay", o: "Sofia", col: "#657083", s: "Booked", t: "mint" },
 ];
 const TONE: Record<string, string> = { violet: "bg-primary-100 text-primary-800 dark:bg-primary-500/20 dark:text-primary-100", amber: "bg-amber-100 text-amber-800 dark:bg-amber-500/20 dark:text-amber-100", mint: "bg-emerald-100 text-emerald-800 dark:bg-emerald-500/20 dark:text-emerald-100" };
 const TRACE = ["Guard · risk 0/100 · pass", "Enrich · 75 employees · DE · $0.05", "Match · no existing account", "Route · EMEA territory → Jonas", "Book · Thu 14:30 · Teams", "CRM · upsert → HubSpot"];
@@ -22,8 +22,8 @@ export function HeroPreview() {
   }, [reduce]);
   return (
     <div className="relative mx-auto w-full max-w-5xl">
-      <div className="product-frame relative overflow-hidden rounded-xl border border-line bg-surface">
-        <div className="flex items-center gap-2 border-b border-[#393934] bg-[#20211e] px-4 py-3 text-[#e2dfd5]"><span className="h-2 w-2 rounded-full bg-[#6b6c63]" /><span className="h-2 w-2 rounded-full bg-[#6b6c63]" /><span className="h-2 w-2 rounded-full bg-[#6b6c63]" /><span className="ml-3 truncate rounded-md border border-[#494a42] px-3 py-1 text-xs text-[#d4d2c8]">Velaroute / Inbox · Sample workspace</span></div>
+      <div className="product-frame relative overflow-hidden rounded-2xl border border-line bg-surface">
+        <div className="flex items-center gap-2 border-b border-line bg-surface-2 px-4 py-3 text-muted"><span className="h-2 w-2 rounded-full bg-[#9aa3af]" /><span className="h-2 w-2 rounded-full bg-[#9aa3af]" /><span className="h-2 w-2 rounded-full bg-[#9aa3af]" /><span className="ml-3 truncate rounded-md border border-line bg-surface px-3 py-1 text-xs text-muted">Velaroute / Inbox · Sample workspace</span></div>
         <div className="grid md:grid-cols-[1.25fr_1fr]">
           <div className="border-b border-line p-4 md:border-b-0 md:border-r">
             <div className="mb-3 flex items-center justify-between"><p className="text-sm font-semibold">Inbox</p><span className="rounded-full bg-primary-100 px-2 py-0.5 text-[11px] font-medium text-primary-800 dark:bg-primary-500/20 dark:text-primary-100">4 need a reply</span></div>

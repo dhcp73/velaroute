@@ -38,12 +38,12 @@ export const DEFAULT_SETTINGS: Settings = {
 };
 
 export const DEMO_REPS: Rep[] = [
-  { id: "rep_ava", name: "Ava Chen", email: "ava@velaroute.dev", title: "Account Executive, SMB", team: "smb", region: "NA", weight: 2, available: true, capacityPerDay: 40, timezone: "America/New_York", workStart: 9, workEnd: 17, calendar: "google", color: "#985a30" },
-  { id: "rep_marcus", name: "Marcus Reid", email: "marcus@velaroute.dev", title: "Account Executive, SMB", team: "smb", region: "NA", weight: 1, available: true, capacityPerDay: 40, timezone: "America/Chicago", workStart: 8, workEnd: 16, calendar: "microsoft", color: "#747d83" },
-  { id: "rep_priya", name: "Priya Nair", email: "priya@velaroute.dev", title: "Account Executive, Mid-market", team: "midmarket", region: "NA", weight: 2, available: true, capacityPerDay: 30, timezone: "America/Los_Angeles", workStart: 8, workEnd: 17, calendar: "google", color: "#63786a" },
-  { id: "rep_jonas", name: "Jonas Weber", email: "jonas@velaroute.dev", title: "Account Executive, EMEA", team: "emea", region: "EMEA", weight: 1, available: true, capacityPerDay: 30, timezone: "Europe/Berlin", workStart: 9, workEnd: 18, calendar: "microsoft", color: "#a08858" },
-  { id: "rep_sofia", name: "Sofia Alvarez", email: "sofia@velaroute.dev", title: "Enterprise Account Executive", team: "enterprise", region: "NA", weight: 1, available: true, capacityPerDay: 20, timezone: "America/New_York", workStart: 9, workEnd: 18, calendar: "google", color: "#817378" },
-  { id: "rep_liam", name: "Liam O'Connor", email: "liam@velaroute.dev", title: "Account Executive, APAC", team: "emea", region: "APAC", weight: 1, available: false, capacityPerDay: 25, timezone: "Australia/Sydney", workStart: 9, workEnd: 17, calendar: "google", color: "#987455" },
+  { id: "rep_ava", name: "Ava Chen", email: "ava@velaroute.dev", title: "Account Executive, SMB", team: "smb", region: "NA", weight: 2, available: true, capacityPerDay: 40, timezone: "America/New_York", workStart: 9, workEnd: 17, calendar: "google", color: "#cf3f16" },
+  { id: "rep_marcus", name: "Marcus Reid", email: "marcus@velaroute.dev", title: "Account Executive, SMB", team: "smb", region: "NA", weight: 1, available: true, capacityPerDay: 40, timezone: "America/Chicago", workStart: 8, workEnd: 16, calendar: "microsoft", color: "#64748b" },
+  { id: "rep_priya", name: "Priya Nair", email: "priya@velaroute.dev", title: "Account Executive, Mid-market", team: "midmarket", region: "NA", weight: 2, available: true, capacityPerDay: 30, timezone: "America/Los_Angeles", workStart: 8, workEnd: 17, calendar: "google", color: "#537563" },
+  { id: "rep_jonas", name: "Jonas Weber", email: "jonas@velaroute.dev", title: "Account Executive, EMEA", team: "emea", region: "EMEA", weight: 1, available: true, capacityPerDay: 30, timezone: "Europe/Berlin", workStart: 9, workEnd: 18, calendar: "microsoft", color: "#b37a18" },
+  { id: "rep_sofia", name: "Sofia Alvarez", email: "sofia@velaroute.dev", title: "Enterprise Account Executive", team: "enterprise", region: "NA", weight: 1, available: true, capacityPerDay: 20, timezone: "America/New_York", workStart: 9, workEnd: 18, calendar: "google", color: "#7c6a79" },
+  { id: "rep_liam", name: "Liam O'Connor", email: "liam@velaroute.dev", title: "Account Executive, APAC", team: "emea", region: "APAC", weight: 1, available: false, capacityPerDay: 25, timezone: "Australia/Sydney", workStart: 9, workEnd: 17, calendar: "google", color: "#8a6456" },
 ];
 
 export const DEMO_FORMS: Form[] = [

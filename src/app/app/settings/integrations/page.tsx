@@ -55,7 +55,7 @@ function Inner() {
                   <p className="mt-1 flex-1 text-sm text-muted">{m.desc}</p>
                   {i.connected && i.keyHint && <p className="mt-2 text-xs text-faint">Key {i.keyHint}</p>}
                   <div className="mt-4 flex gap-2">
-                    {m.oauth ? <a href={`/api/oauth/${id}/start`} className="inline-flex h-8 items-center rounded-md bg-ink px-3 text-[13px] font-medium text-bg hover:opacity-85">{i.connected ? "Reconnect" : "Connect"}</a>
+                    {m.oauth ? <a href={`/api/oauth/${id}/start`} className="inline-flex h-8 items-center rounded-full bg-primary-500 px-3 text-[13px] font-medium text-white hover:bg-primary-600">{i.connected ? "Reconnect" : "Connect"}</a>
                       : <Button size="sm" variant={i.connected ? "secondary" : "primary"} onClick={() => { setOpen(id); setKey(""); }}>{i.connected ? "Update key" : "Connect"}</Button>}
                     {i.connected && <Button size="sm" variant="ghost" onClick={() => dispatch({ type: "integration.disconnect", id }, { success: `${m.name} disconnected` })}>Disconnect</Button>}
                   </div>
