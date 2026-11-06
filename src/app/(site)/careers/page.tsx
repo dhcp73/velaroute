@@ -11,7 +11,7 @@ const ROLES = [
 export default function CareersPage() {
   return (
     <>
-      <PageHero eyebrow="Careers" title={<>Build the inbound engine <span className="text-gradient">small teams deserve</span></>}>We're a very small team. We hire slowly, pay fairly and write things down.</PageHero>
+      <PageHero eyebrow="Careers" title={<>Build the inbound engine <span className="text-gradient">small teams deserve</span></>}>We&apos;re a very small team. We hire slowly, pay fairly and write things down.</PageHero>
       <Section className="!pt-0">
         <div className="mx-auto grid max-w-3xl gap-4">
           {ROLES.map((r) => (

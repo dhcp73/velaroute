@@ -11,7 +11,7 @@ export default function ContactPage() {
   const form = loadWorkspace("ws_demo").forms.find((f) => f.slug === "contact-sales");
   return (
     <>
-      <PageHero eyebrow="Contact" title={<>Talk to a <span className="text-gradient">human</span></>}>Questions about pricing, a design partnership or a security review? This form is routed by Velaroute itself — so you'll see the product working as you send it.</PageHero>
+      <PageHero eyebrow="Contact" title={<>Talk to a <span className="text-gradient">human</span></>}>Questions about pricing, a design partnership or a security review? This form is routed by Velaroute itself — so you&apos;ll see the product working as you send it.</PageHero>
       <Section className="!pt-0">
         <div className="mx-auto grid max-w-5xl gap-8 lg:grid-cols-[1fr_1.3fr]">
           <div className="space-y-4">

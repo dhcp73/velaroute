@@ -20,9 +20,9 @@ export default function AboutPage() {
         <Reveal className="prose prose-lg mx-auto max-w-3xl dark:prose-invert">
           <h2>The founding story</h2>
           <p>Velaroute started with a simple, slightly embarrassing observation: most B2B teams we looked at were far better at generating inbound demand than at answering it. Demo requests arrived in a shared inbox. Someone assigned them by hand, or by a round-robin sheet that drifted out of date. Enrichment ran on every submission — including the bots. And when a lead went cold, nobody could say whether it was routed wrong, routed late or never routed at all.</p>
-          <p>The tools that fix this exist, but they were built for large revenue organisations: annual contracts, implementation partners and per-seat pricing that a ten-rep team can't justify. Smaller teams stitch together a form tool, a scheduler, a Zap and a Slack channel, and hope.</p>
+          <p>The tools that fix this exist, but they were built for large revenue organisations: annual contracts, implementation partners and per-seat pricing that a ten-rep team can&apos;t justify. Smaller teams stitch together a form tool, a scheduler, a Zap and a Slack channel, and hope.</p>
           <p>We think agents change the shape of the problem. Not one giant AI that &ldquo;handles inbound&rdquo;, but a pipeline of small, testable agents — a guard, an enricher, a matcher, a router, a booker, a CRM writer and an SLA watcher — each with a single job and a written trace. Put them in one product, price it for teams of 3 to 50 reps, and make every decision explainable.</p>
-          <p>That's Velaroute. The name comes from <em>vela</em>, Latin for sail, and <em>route</em>: catch the moment a buyer raises their hand, and get them to the right person before it passes.</p>
+          <p>That&apos;s Velaroute. The name comes from <em>vela</em>, Latin for sail, and <em>route</em>: catch the moment a buyer raises their hand, and get them to the right person before it passes.</p>
           <p>Velaroute was designed and built by <a href="https://github.com/rahulpatel84" target="_blank" rel="noreferrer">Rahul Patel</a>.</p>
         </Reveal>
       </Section>

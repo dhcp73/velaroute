@@ -1,5 +1,4 @@
 "use client";
-import Link from "next/link";
 import { useState } from "react";
 import { Copy, KeyRound, Plus, Send, Trash2, Webhook } from "lucide-react";
 import { useWs } from "@/components/app/workspace";
@@ -25,6 +24,8 @@ export default function Developers() {
 
   return (
     <>
+      {/* Hard navigation on purpose: the OpenAPI explorer must load as a full page. */}
+      {/* eslint-disable-next-line @next/next/no-html-link-for-pages */}
       <PageHeader title="Developers" subtitle="REST API, signed webhooks and an MCP server for your AI tools." actions={<a href="/docs/api" className="inline-flex h-10 items-center rounded-full border border-line bg-surface px-4 text-sm font-medium hover:bg-surface-2">API reference</a>} />
       <Card>
         <CardHeader title="API keys" subtitle="Scoped keys. The full key is shown once — we store only a SHA-256 hash." action={<Button size="sm" icon={<Plus className="h-4 w-4" />} onClick={() => { setKeyModal(true); setPlain(""); setKeyName(""); }}>Create key</Button>} />
