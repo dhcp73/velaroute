@@ -3,6 +3,7 @@ import type { Metadata } from "next";
 import { ArrowRight, Check, Play } from "lucide-react";
 import { buttonClass } from "@/components/button-class";
 import { CountUp, Marquee, Reveal } from "@/components/site/motion";
+import { HeroSignal } from "@/components/site/signal-graphics";
 import { HeroPreview } from "@/components/site/hero-preview";
 import { PipelineFlow } from "@/components/site/pipeline";
 import { Section, SectionTitle } from "@/components/site/page-hero";
@@ -14,8 +15,9 @@ export const metadata: Metadata = { title: "Velaroute — the agentic inbound en
 export default function Home() {
   return (
     <>
-      <section className="overflow-hidden bg-bg">
-        <div className="mx-auto max-w-7xl px-5 pb-16 pt-12 sm:px-8 sm:pt-20">
+      <section className="product-hero relative isolate overflow-hidden bg-bg" data-product-hero>
+        <HeroSignal />
+        <div className="relative z-10 mx-auto max-w-7xl px-5 pb-16 pt-24 sm:px-8 sm:pt-24 lg:pt-20">
           <Reveal className="mx-auto max-w-4xl text-center">
             <Link href="/changelog" className="inline-flex max-w-full items-center gap-2 rounded-full border border-line bg-surface-2 px-3 py-1.5 text-xs font-medium text-muted hover:text-primary-600">
               <span className="h-1.5 w-1.5 shrink-0 rounded-full bg-primary-500" /><span className="truncate">MCP server &amp; SLA auto re-routing</span><ArrowRight className="h-3.5 w-3.5 shrink-0" />

@@ -25,8 +25,8 @@ export default function HowItWorks() {
         Each step is a small agent with one job and a written trace. You can test, tune or switch off any of them.
       </PageHero>
       <Section className="!pt-0"><PipelineFlow /></Section>
-      <Section className="!pt-0">
-        <div className="relative mx-auto max-w-3xl border-l-2 border-dashed border-primary-200 pl-8 dark:border-primary-500/30">
+      <Section className="relative isolate border-t border-line !pt-12 sm:!pt-16">
+        <div data-step-section className="relative mx-auto max-w-3xl border-l-2 border-dashed border-primary-200 pl-8 dark:border-primary-500/30">
           {STAGES.map((s, i) => (
             <Reveal key={s.id} delay={0.03} className="relative pb-12 last:pb-0">
               <div>

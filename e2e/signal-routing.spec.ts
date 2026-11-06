@@ -1,0 +1,103 @@
+import { test, expect } from "@playwright/test";
+import fs from "node:fs/promises";
+const baseURL = process.env.BASE_URL || "http://localhost:3307";
+const local = /^https?:\/\/(localhost|127\.0\.0\.1)(:|\/|$)/.test(baseURL);
+const screens = "reports/screens";
+
+for (const width of [375, 1280]) {
+  test(`product graphics, bounded steps and closing CTA at ${width}px`, async ({ page }) => {
+    await fs.mkdir(screens, { recursive: true });
+    await page.setViewportSize({ width, height: 900 });
+    await page.goto(baseURL);
+    await page.evaluate(() => document.fonts.ready);
+    const hero = page.locator("[data-product-hero]");
+    await expect(page.locator("[data-hero-signal]")).toBeVisible();
+    const type = page.locator("h1");
+    const graphic = width < 1200 ? page.locator(".signal-mobile") : page.locator(".signal-form");
+    await expect(graphic).toBeVisible();
+    const a = (await type.boundingBox())!, b = (await graphic.boundingBox())!;
+    expect(a.x + a.width <= b.x || b.x + b.width <= a.x || a.y + a.height <= b.y || b.y + b.height <= a.y).toBeTruthy();
+    await expect(page.locator(".signal-packet").first()).toHaveCSS("animation-name", "none");
+    await page.emulateMedia({ reducedMotion: "no-preference" });
+    await expect(page.locator(".signal-packet").first()).toHaveCSS("animation-name", "signal-route");
+    await page.emulateMedia({ reducedMotion: "reduce" });
+    await page.screenshot({ path: `${screens}/home-${width}.png` });
+    await hero.screenshot({ path: `${screens}/hero-${width}.png` });
+    const cta = page.locator("[data-closing-cta]");
+    await cta.scrollIntoViewIfNeeded();
+    await expect(cta.locator("[data-cta-graphic]")).toBeVisible();
+    await expect(cta.getByRole("link", { name: "Start free", exact: true })).toBeVisible();
+    await cta.screenshot({ path: `${screens}/cta-${width}.png` });
+    await page.goto(baseURL + "/how-it-works");
+    const preview = page.locator("[data-pipeline-preview]");
+    const steps = page.locator("[data-step-section]");
+    const heights: number[] = [];
+    for (const stage of ["Capture", "Guard", "Enrich", "Route"]) {
+      await preview.getByRole("button", { name: new RegExp(`^${stage}:`) }).click();
+      const p = (await preview.boundingBox())!, c = (await preview.locator("[data-pipeline-caption]").boundingBox())!, s = (await steps.boundingBox())!;
+      expect(c.y + c.height).toBeLessThanOrEqual(p.y + p.height);
+      expect(s.y).toBeGreaterThan(p.y + p.height + 20);
+      heights.push(p.height);
+    }
+    expect(Math.max(...heights) - Math.min(...heights)).toBeLessThan(2);
+    const stepTop = await steps.evaluate((el) => el.getBoundingClientRect().top + window.scrollY);
+    await page.evaluate((y) => window.scrollTo(0, y - 120), stepTop);
+    await page.screenshot({ path: `${screens}/steps-${width}.png` });
+    await page.screenshot({ path: `${screens}/how-it-works-${width}.png`, fullPage: true });
+    expect(await page.evaluate(() => document.documentElement.scrollWidth <= innerWidth + 1)).toBeTruthy();
+  });
+  test(`compact editor chrome, command search and routing assistant at ${width}px`, async ({ page, context }) => {
+    test.skip(!local, "Only mutate isolated local demo storage");
+    await fs.mkdir(screens, { recursive: true });
+    await page.setViewportSize({ width, height: 1000 });
+    expect((await context.request.post(baseURL + "/api/auth/login", { data: { email: "demo@velaroute.dev", password: "demo1234" } })).ok()).toBeTruthy();
+    await page.goto(baseURL + "/app/forms/frm_demo");
+    await expect(page.locator("[data-form-canvas]")).toBeVisible();
+    const search = page.getByRole("button", { name: "Search leads and pages", exact: true });
+    expect((await search.boundingBox())!.width).toBeLessThan(180);
+    expect((await page.locator("[data-demo-banner]").boundingBox())!.height).toBeLessThan(50);
+    await page.screenshot({ path: `${screens}/form-editor-${width}.png`, fullPage: true });
+    await page.getByRole("button", { name: "Dismiss demo storage notice" }).click();
+    await page.reload();
+    await expect(page.locator("[data-demo-banner]")).toHaveCount(0);
+    for (const route of ["/app/inbox", "/app/routing"]) {
+      await page.goto(baseURL + route);
+      await search.click();
+      await expect(page.getByRole("dialog", { name: "Search", exact: true })).toBeVisible();
+      await expect(page.getByRole("dialog", { name: "Search", exact: true }).getByRole("textbox", { name: "Search", exact: true })).toBeFocused();
+      await page.keyboard.press("Escape");
+      await expect(page.getByRole("dialog", { name: "Search", exact: true })).toHaveCount(0);
+      await page.keyboard.press("Control+k");
+      await expect(page.getByRole("dialog", { name: "Search", exact: true })).toBeVisible();
+      await page.getByRole("dialog", { name: "Search", exact: true }).getByRole("textbox", { name: "Search", exact: true }).fill("Jonas");
+      await expect(page.getByRole("dialog", { name: "Search", exact: true }).getByRole("textbox", { name: "Search", exact: true })).toBeFocused();
+      await page.keyboard.press("Escape");
+      await expect(page.getByRole("dialog", { name: "Search", exact: true })).toHaveCount(0);
+    }
+    await page.getByRole("button", { name: "Describe a rule", exact: true }).click();
+    const panel = page.locator("[data-rule-assistant]");
+    await panel.getByLabel("Rule instructions", { exact: true }).fill("enterprise leads in Germany go to Jonas, everyone else round-robin");
+    await panel.getByRole("button", { name: "Preview rule", exact: true }).click();
+    await expect(panel.getByRole("button", { name: "Confirm & save rule", exact: true })).toBeDisabled();
+    await expect(panel.getByRole("log")).toContainText("employee threshold");
+    await panel.getByLabel("Clarify your instructions", { exact: true }).fill("at least 1000 employees");
+    await panel.getByRole("button", { name: "Preview rule", exact: true }).click();
+    await expect(panel.locator("[data-rule-preview]")).toContainText("Jonas Weber");
+    await expect(panel.locator("[data-rule-preview]")).toContainText("DE");
+    const name = `Germany enterprise · ${width}px · ${Date.now().toString(36)}`;
+    await panel.getByLabel("Draft rule name", { exact: true }).fill(name);
+    await expect(page.getByText(name, { exact: true })).toHaveCount(0);
+    expect(await page.evaluate((n) => Object.keys(localStorage).filter((k) => k.startsWith("vr:ws:")).some((k) => JSON.parse(localStorage.getItem(k)!).rules.some((r: { name: string }) => r.name === n)), name)).toBe(false);
+    await page.evaluate(() => window.scrollTo(0, 0));
+    await page.screenshot({ path: `${screens}/routing-chat-${width}.png`, fullPage: true });
+    expect(await page.evaluate(() => document.documentElement.scrollWidth <= innerWidth + 1)).toBeTruthy();
+    await panel.getByRole("button", { name: "Confirm & save rule", exact: true }).click();
+    await expect(panel.getByRole("log")).toContainText(`Saved “${name}”`);
+    expect(await page.evaluate((n) => Object.keys(localStorage).filter((k) => k.startsWith("vr:ws:")).some((k) => JSON.parse(localStorage.getItem(k)!).rules.some((r: { name: string }) => r.name === n)), name)).toBe(true);
+    await expect(page.getByText(name, { exact: true }).first()).toBeVisible();
+    await page.reload();
+    await expect(page.getByText(name, { exact: true }).first()).toBeVisible();
+    await page.getByRole("button", { name: "New rule", exact: true }).click();
+    await expect(page.getByRole("dialog")).toBeVisible();
+  });
+}

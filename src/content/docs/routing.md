@@ -20,12 +20,28 @@ Each rule has one or more conditions joined by **all** or **any**. Conditions ca
 | --- | --- |
 | `country`, `region` | `region = EMEA` |
 | `employees` | `employees >= 200` |
+| `domain` | `domain ends_with .acme.com` |
 | `industry` | `industry contains Fintech` |
 | `icpScore` | `icpScore >= 70` |
 | `source` | `source = chat` |
 | any form answer | `answers.team_size = 51-200` |
 
 ![Routing rules](/docs/screens/routing.png)
+
+## Describe a rule
+
+Open **Routing → Describe a rule** to draft from plain language alongside the manual builder. For example:
+
+- “EMEA companies over 50 employees between Jonas and Sofia”
+- “Germany leads go to Jonas, everyone else round-robin”
+- “domain ends with .acme.com and ICP at least 80 go to Ava”
+- “answer budget >= 5000 go to Jonas”
+
+This is a local, key-free parser, not a paid language model. It resolves names against your actual team and asks for a full name when ambiguous. Labels such as “enterprise” need an explicit employee threshold; reply “at least 1000 employees” to refine the same draft. In this parser, “over” and “under” compile to inclusive `gte` and `lte` comparisons; the preview shows the exact operator.
+
+Review the human summary, structured conditions, receiving reps and rule position. Specific rules default before existing rules; an explicit catch-all defaults after them. **Confirm & save rule** is the only action that changes routing. **Edit manually** opens the existing rule editor instead. Unsupported fields, exclusions and ambiguous mixed AND/OR groups require clarification or separate manual rules.
+
+“Everyone else round-robin” does not silently create a second rule: unmatched leads continue through existing rules and the built-in fallback. Account owners, eligibility, capacity and weights still apply.
 
 ## Weighted round robin
 

@@ -1,9 +1,10 @@
 "use client";
 import { useState } from "react";
-import { ArrowDown, ArrowUp, FlaskConical, Pencil, Plus, Trash2, UserPlus, X } from "lucide-react";
+import { ArrowDown, ArrowUp, FlaskConical, Pencil, MessageSquare, Plus, Trash2, UserPlus, X } from "lucide-react";
+import { RuleAssistant } from "@/components/app/rule-assistant";
 import { useWs } from "@/components/app/workspace";
 import { Loading, PageHeader } from "@/components/app/shell";
-import { Avatar, Button, Card, CardHeader, Chip, Empty, Field, Input, Modal, Select, Toggle } from "@/components/ui";
+import { Avatar, Button, Card, CardHeader, Chip, Empty, Field, Input, Modal, Select, Tabs, Toggle } from "@/components/ui";
 import type { Rep, RouteCondition, RouteField, RouteOp, RoutingRule } from "@/lib/engine/types";
 import { TZ_OFFSETS } from "@/lib/engine/util";
 import { cn } from "@/lib/cn";
@@ -23,6 +24,7 @@ function condText(c: RouteCondition) {
 
 export default function Routing() {
   const { ws, dispatch, busy } = useWs();
+  const [mode, setMode] = useState<"manual" | "describe">("manual");
   const [draft, setDraft] = useState<Draft | null>(null);
   const [rep, setRep] = useState<Partial<Rep> | null>(null);
   const [test, setTest] = useState({ email: "maya@kestrel.ai", title: "VP Sales" });
@@ -48,7 +50,9 @@ export default function Routing() {
   return (
     <>
       <PageHeader title="Routing" subtitle="Account owners first, then rules top to bottom, then weighted round robin inside each pool. Away, paused (weight 0) and full reps are skipped."
-        actions={<Button icon={<Plus className="h-4 w-4" />} onClick={() => setDraft({ name: "", match: "all", conditions: [{ field: "employees", op: "gte", value: "50" }], repIds: [], enabled: true })}>New rule</Button>} />
+        actions={<><Button variant="secondary" icon={<MessageSquare className="h-4 w-4" />} onClick={() => setMode("describe")}>Describe a rule</Button><Button icon={<Plus className="h-4 w-4" />} onClick={() => setDraft({ name: "", match: "all", conditions: [{ field: "employees", op: "gte", value: "50" }], repIds: [], enabled: true })}>New rule</Button></>} />
+      <Tabs className="mb-4 w-fit" value={mode} onChange={setMode} items={[{ id: "manual", label: "Manual" }, { id: "describe", label: "Describe" }]} />
+      {mode === "describe" && <RuleAssistant onManual={(r) => setDraft(r)} />}
       <div className="grid gap-4 xl:grid-cols-[1.5fr_1fr]">
         <Card>
           <CardHeader title="Rules" subtitle="Evaluated in order — the first rule with an available rep wins" />

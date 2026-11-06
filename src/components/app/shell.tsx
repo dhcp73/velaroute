@@ -169,6 +169,9 @@ function UserMenu() {
 export function AppShell({ children }: { children: ReactNode }) {
   const [drawer, setDrawer] = useState(false);
   const [palette, setPalette] = useState(false);
+  const [showDemo, setShowDemo] = useState(true);
+  useEffect(() => { try { setShowDemo(localStorage.getItem("vr:demo-banner:hidden") !== "1"); } catch { /* storage unavailable */ } }, []);
+  const dismissDemo = () => { setShowDemo(false); try { localStorage.setItem("vr:demo-banner:hidden", "1"); } catch { /* storage unavailable */ } };
   const { ws } = useWs();
   const path = usePathname();
   useEffect(() => setDrawer(false), [path]);
@@ -196,11 +199,11 @@ export function AppShell({ children }: { children: ReactNode }) {
         </div>
       )}
       <div className="lg:pl-60">
-        {BROWSER_MODE && <div className="border-b border-line bg-surface-2 px-4 py-2 text-center text-xs leading-5 text-muted">Demo mode: your workspace is saved in this browser. Connect a database for permanent storage.</div>}
-        <header className="sticky top-0 z-30 flex h-16 items-center gap-2 border-b border-line bg-bg/85 px-4 backdrop-blur-md sm:px-6">
+        {BROWSER_MODE && showDemo && <div data-demo-banner className="flex items-center justify-center gap-3 border-b border-line bg-surface-2 px-4 py-1 text-[11px] leading-4 text-muted"><span>Demo · Saved in this browser only. No shared database.</span><button type="button" onClick={dismissDemo} aria-label="Dismiss demo storage notice" className="shrink-0 rounded p-1 text-muted hover:bg-line hover:text-ink"><X className="h-3 w-3" /></button></div>}
+        <header className="sticky top-0 z-30 flex h-14 items-center gap-2 border-b border-line bg-bg/85 px-4 backdrop-blur-md sm:px-6">
           <button type="button" className="grid h-9 w-9 place-items-center rounded-full hover:bg-surface-2 lg:hidden" onClick={() => setDrawer(true)} aria-label="Open menu"><Menu className="h-5 w-5" /></button>
-          <button type="button" onClick={() => setPalette(true)} className="flex h-10 min-w-0 max-w-md flex-1 items-center gap-2 rounded-md border border-line bg-surface px-4 text-left text-sm text-faint hover:border-primary-300">
-            <Search className="h-4 w-4 shrink-0" /><span className="truncate">Search leads, pages…</span><kbd className="ml-auto hidden rounded-md border border-line px-1.5 text-[11px] sm:inline">⌘K</kbd>
+          <button type="button" onClick={() => setPalette(true)} aria-label="Search leads and pages" className="inline-flex h-8 shrink-0 items-center gap-2 rounded-lg border border-line bg-surface px-2.5 text-xs text-muted hover:border-primary-300 hover:text-ink">
+            <Search className="h-3.5 w-3.5 shrink-0" /><span className="hidden sm:inline">Search</span><kbd className="hidden rounded border border-line px-1 text-[10px] sm:inline">⌘K</kbd>
           </button>
           <div className="ml-auto flex items-center gap-1"><ThemeToggle /><Alerts /><UserMenu /></div>
         </header>

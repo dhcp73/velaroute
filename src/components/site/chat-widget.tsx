@@ -22,7 +22,7 @@ export function ChatWidget() {
     } catch { setErr("Network error"); } finally { setBusy(false); }
   };
   return (
-    <div className="fixed bottom-5 right-5 z-[60] flex flex-col items-end gap-3">
+    <div className="fixed bottom-3 right-3 sm:bottom-5 sm:right-5 z-[60] flex flex-col items-end gap-3">
       <AnimatePresence>
         {open && (
           <motion.div initial={{ opacity: 0, y: 16, scale: 0.97 }} animate={{ opacity: 1, y: 0, scale: 1 }} exit={{ opacity: 0, y: 16, scale: 0.97 }} transition={{ duration: 0.2 }}
@@ -46,7 +46,7 @@ export function ChatWidget() {
           </motion.div>
         )}
       </AnimatePresence>
-      <button type="button" onClick={() => { setOpen((o) => !o); opened.current = Date.now(); }} aria-label={open ? "Close chat" : "Open chat"} aria-expanded={open} className="grid h-14 w-14 place-items-center rounded-full bg-primary-500 text-white shadow-xl shadow-primary-500/30 transition-transform hover:scale-105 hover:bg-primary-600">
+      <button type="button" onClick={() => { setOpen((o) => !o); opened.current = Date.now(); }} aria-label={open ? "Close chat" : "Open chat"} aria-expanded={open} className="grid h-12 w-12 sm:h-14 sm:w-14 place-items-center rounded-full bg-primary-500 text-white shadow-xl shadow-primary-500/30 transition-transform hover:scale-105 hover:bg-primary-600">
         {open ? <X className="h-6 w-6" /> : <MessageCircle className="h-6 w-6" />}
       </button>
     </div>

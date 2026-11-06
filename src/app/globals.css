@@ -101,3 +101,44 @@ body { background: var(--bg); color: var(--ink); font-family: var(--font-sans); 
   .marketing h1 { font-size: 2.65rem; }
   .marketing h2 { font-size: 2.1rem; }
 }
+
+/* Product signals: intentional UI fragments, never a decorative particle field. */
+.hero-signal { position: absolute; inset: 0 0 auto; height: 620px; pointer-events: none; z-index: 0; overflow: hidden; }
+.signal-wires { display: none; position: absolute; width: 1440px; max-width: none; height: 640px; left: 50%; transform: translateX(-50%); opacity: .45; }
+.signal-track { stroke: var(--line); stroke-width: 1.5; }
+.signal-packet { stroke: var(--color-primary-400); stroke-width: 2; stroke-dasharray: 5 210; animation: signal-route 13s linear infinite; }
+.signal-fragment { display: none; position: absolute; width: 160px; padding: 14px; border: 1px solid var(--line); border-radius: 14px; background: var(--surface); box-shadow: 0 12px 35px -22px rgb(20 30 50 / .2); font-size: 10px; color: var(--muted); animation: signal-float 8s ease-in-out infinite; }
+.signal-card-label { display: flex; align-items: center; justify-content: space-between; gap: 6px; font-weight: 600; color: var(--ink); font-size: 10px; }
+.signal-status-dot { width: 5px; height: 5px; border-radius: 50%; background: var(--color-primary-500); }
+.signal-field-label { display: block; margin: 10px 0 4px; font-size: 8px; }
+.signal-field { padding: 6px; border: 1px solid var(--line); border-radius: 5px; font-size: 8px; }
+.signal-cursor { display: inline-block; height: 9px; margin-left: 2px; border-left: 1px solid var(--color-primary-500); animation: signal-type 2s steps(2) infinite; }
+.signal-form-action { display: flex; justify-content: space-between; margin-top: 10px; padding: 6px 8px; border-radius: 6px; background: var(--color-primary-50); color: var(--color-primary-600); font-weight: 600; }
+.signal-person { display: flex; align-items: center; gap: 8px; margin-top: 14px; }
+.signal-person > span { display: grid; place-items: center; width: 28px; height: 28px; background: var(--surface-2); color: var(--ink); border-radius: 50%; font-size: 8px; font-weight: 600; }
+.signal-person strong, .signal-fragment strong { display: block; color: var(--ink); font-size: 10px; font-weight: 600; }
+.signal-person small, .signal-fragment small { display: block; margin-top: 3px; font-size: 8px; }
+.signal-mini-route { display: flex; align-items: center; gap: 4px; margin-top: 14px; padding-top: 10px; border-top: 1px solid var(--line); font-size: 8px; }
+.signal-mini-route i { height: 3px; width: 10px; border-radius: 2px; background: var(--color-primary-300); }
+.signal-mini-route span { margin-left: auto; }
+.signal-check { display: grid; place-items: center; flex: none; width: 22px; height: 22px; border-radius: 50%; background: var(--surface-2); color: var(--color-primary-500); font-weight: 600; }
+.signal-mobile { display: block; width: min(310px, 86%); height: 62px; margin: 7px auto 0; opacity: .8; }
+.cta-routing-art { display: block; width: 100%; max-width: 500px; margin: auto; }
+.cta-route-packet { stroke-dasharray: 8 75; animation: signal-route 8s linear infinite; }
+@keyframes signal-route { to { stroke-dashoffset: -430; } }
+@keyframes signal-float { 0%,100% { transform: translateY(0) rotate(-3deg); } 50% { transform: translateY(-8px) rotate(-1deg); } }
+@keyframes signal-type { 50% { opacity: 0; } }
+@media (min-width: 1280px) {
+  .signal-mobile { display: none; }
+  .signal-wires { display: block; }
+  .signal-fragment { display: block; opacity: .72; }
+  .signal-form { left: max(18px, calc(50% - 690px)); top: 135px; }
+  .signal-owner { right: max(18px, calc(50% - 690px)); top: 155px; animation-delay: -3s; }
+  .signal-qualified, .signal-enriched { display: flex; align-items: center; gap: 8px; width: 172px; }
+  .signal-qualified { left: max(30px, calc(50% - 660px)); top: 397px; animation-delay: -2s; }
+  .signal-enriched { right: max(26px, calc(50% - 675px)); top: 386px; animation-delay: -5s; }
+}
+@media (max-width: 639px) { .cta-routing-art { max-height: 210px; } }
+@media (prefers-reduced-motion: reduce) {
+  .signal-fragment, .signal-packet, .signal-cursor, .cta-route-packet { animation: none !important; transform: none; }
+}

@@ -44,17 +44,17 @@ export default function FormBuilder() {
   return (
     <>
       <Link href="/app/forms" className="mb-4 inline-flex items-center gap-1.5 text-sm text-muted hover:text-ink"><ArrowLeft className="h-4 w-4" />Forms</Link>
-      <div className="mb-5 flex flex-wrap items-center gap-3">
-        <Input aria-label="Form name" value={form.name} onChange={(e) => upd({ name: e.target.value })} className="h-11 max-w-sm font-display text-lg font-semibold" />
+      <div className="form-editor-toolbar mb-4 flex flex-wrap items-center gap-3">
+        <Input aria-label="Form name" value={form.name} onChange={(e) => upd({ name: e.target.value })} className="h-10 w-full max-w-none font-display text-lg font-semibold sm:max-w-sm" />
         <label className="flex items-center gap-2 text-sm"><Toggle checked={form.status === "live"} label="Live" onChange={(v) => upd({ status: v ? "live" : "draft" })} />{form.status === "live" ? "Live" : "Draft"}</label>
         <label className="flex items-center gap-2 text-sm"><Toggle checked={form.showBooking} label="Instant booking" onChange={(v) => upd({ showBooking: v })} />Instant booking</label>
         <div className="ml-auto flex gap-2">
           {dirty && <Chip tone="amber">Unsaved changes</Chip>}
-          <Button variant="ghost" icon={<Trash2 className="h-4 w-4" />} onClick={() => setDel(true)}>Delete</Button>
-          <Button icon={<Save className="h-4 w-4" />} loading={busy} disabled={!dirty} onClick={save}>Save</Button>
+          <Button size="sm" variant="ghost" icon={<Trash2 className="h-4 w-4" />} onClick={() => setDel(true)}>Delete</Button>
+          <Button size="sm" icon={<Save className="h-4 w-4" />} loading={busy} disabled={!dirty} onClick={save}>Save</Button>
         </div>
       </div>
-      <div className="grid gap-4 xl:grid-cols-[1.2fr_1fr]">
+      <div data-form-canvas className="grid gap-4 xl:grid-cols-[1.2fr_1fr]">
         <div className="min-w-0">
           <Tabs value={tab} onChange={setTab} className="mb-4 w-fit" items={[{ id: "build", label: "Steps & fields" }, { id: "logic", label: "Branching", count: form.logic.length }, { id: "share", label: "Share & embed" }]} />
           {tab === "build" && (
