@@ -19,7 +19,7 @@ export function StatusBoard() {
   const ok = s.status === "ok";
   return (
     <div className="space-y-5">
-      <div className={cn("flex flex-col gap-3 rounded-3xl p-6 sm:flex-row sm:items-center sm:justify-between", ok ? "bg-mint-soft text-emerald-900 dark:bg-emerald-500/10 dark:text-emerald-100" : "bg-amber-soft text-amber-900 dark:bg-amber-500/10 dark:text-amber-100")}>
+      <div className={cn("flex flex-col gap-3 rounded-xl p-6 sm:flex-row sm:items-center sm:justify-between", ok ? "bg-mint-soft text-emerald-900 dark:bg-emerald-500/10 dark:text-emerald-100" : "bg-amber-soft text-amber-900 dark:bg-amber-500/10 dark:text-amber-100")}>
         <div className="flex items-center gap-3">{ok ? <CheckCircle2 className="h-7 w-7" /> : <AlertTriangle className="h-7 w-7" />}<div><p className="font-display text-xl font-semibold">{ok ? "All systems operational" : s.status === "down" ? "Major outage" : "Partial degradation"}</p><p className="text-sm opacity-80">Checked {new Date(s.checkedAt).toLocaleTimeString()} · refreshes every 30 s</p></div></div>
         <button type="button" onClick={load} disabled={busy} className="inline-flex h-10 items-center justify-center gap-2 rounded-full bg-white/70 px-4 text-sm font-medium text-ink hover:bg-white dark:bg-white/10 dark:text-white"><RefreshCw className={cn("h-4 w-4", busy && "animate-spin")} />Re-check</button>
       </div>

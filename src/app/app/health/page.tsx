@@ -24,7 +24,7 @@ export default function HealthPage() {
         <CardHeader title="System" subtitle={h ? `Checked ${ago(h.checkedAt, now)} · storage mode ${h.mode}` : "Checking…"} action={h && <Chip tone={h.status === "ok" ? "mint" : h.status === "degraded" ? "amber" : "rose"} dot>{h.status === "ok" ? "All systems normal" : h.status}</Chip>} />
         <ul className="mt-3 grid gap-3 p-5 pt-2 sm:grid-cols-2 xl:grid-cols-3">
           {(h?.checks ?? []).map((c) => (
-            <li key={c.component} className="rounded-2xl bg-surface-2 p-4">
+            <li key={c.component} className="rounded-lg bg-surface-2 p-4">
               <p className="flex items-center gap-2 text-sm font-semibold capitalize">{c.ok ? <CheckCircle2 className="h-4 w-4 text-emerald-500" /> : <XCircle className="h-4 w-4 text-rose-500" />}{c.component}<span className="ml-auto text-xs font-normal text-faint">{c.ms} ms</span></p>
               <p className="mt-1 text-xs text-muted">{c.detail}</p>
             </li>

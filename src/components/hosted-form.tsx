@@ -77,7 +77,7 @@ export function HostedForm({ form, wid, preview = false, onSubmitted }: { form: 
             <h2 className="mt-4 font-display text-2xl font-semibold">Thanks — we&apos;ve got it</h2>
             {result.owner && result.slots.length ? (
               <>
-                <div className="mx-auto mt-4 flex w-fit items-center gap-3 rounded-2xl bg-surface-2 px-4 py-3 text-left"><Avatar name={result.owner.name} color={result.owner.color} size={40} /><div><p className="text-sm font-semibold">{result.owner.name}</p><p className="text-xs text-muted">{result.owner.title}</p></div></div>
+                <div className="mx-auto mt-4 flex w-fit items-center gap-3 rounded-lg bg-surface-2 px-4 py-3 text-left"><Avatar name={result.owner.name} color={result.owner.color} size={40} /><div><p className="text-sm font-semibold">{result.owner.name}</p><p className="text-xs text-muted">{result.owner.title}</p></div></div>
                 <p className="mt-4 text-sm text-muted">Pick a time with {result.owner.name.split(" ")[0]} — times shown in your time zone.</p>
                 <div className="mt-3 grid grid-cols-2 gap-2 sm:grid-cols-3">
                   {result.slots.slice(0, 9).map((s) => (

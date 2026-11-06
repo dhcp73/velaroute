@@ -1,15 +1,12 @@
 import type { ReactNode } from "react";
-import { Orbs } from "./motion";
 
 export function PageHero({ eyebrow, title, children }: { eyebrow: string; title: ReactNode; children?: ReactNode }) {
   return (
     <section className="relative overflow-hidden">
-      <div className="bg-grid absolute inset-0 [mask-image:radial-gradient(ellipse_at_top,black_30%,transparent_70%)]" aria-hidden />
-      <Orbs className="opacity-60" />
-      <div className="relative mx-auto max-w-4xl px-5 pb-14 pt-16 text-center sm:px-8 sm:pt-24">
-        <p className="mx-auto inline-flex items-center gap-2 rounded-full border border-line bg-surface/70 px-3 py-1 text-xs font-medium text-muted backdrop-blur"><span className="h-1.5 w-1.5 rounded-full bg-primary-500" />{eyebrow}</p>
-        <h1 className="mt-5 text-balance font-display text-4xl font-semibold tracking-tight sm:text-6xl">{title}</h1>
-        {children && <div className="mx-auto mt-5 max-w-2xl text-pretty text-lg text-muted">{children}</div>}
+      <div className="relative mx-auto max-w-7xl px-5 pb-16 pt-20 sm:px-8 sm:pb-20 sm:pt-28">
+        <p className="inline-flex items-center gap-2 text-xs font-semibold uppercase tracking-[.16em] text-muted"><span className="h-1.5 w-1.5 rounded-full bg-primary-500" />{eyebrow}</p>
+        <h1 className="mt-6 max-w-4xl text-balance font-display text-5xl tracking-tight sm:text-7xl">{title}</h1>
+        {children && <div className="mt-6 max-w-2xl text-pretty text-lg leading-relaxed text-muted">{children}</div>}
       </div>
     </section>
   );

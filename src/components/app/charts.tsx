@@ -9,15 +9,15 @@ export function VolumeChart({ data }: { data: { day: string; leads: number; book
     <ResponsiveContainer width="100%" height={240}>
       <AreaChart data={data} margin={{ left: -18, right: 8, top: 8 }}>
         <defs>
-          <linearGradient id="gl" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stopColor="#7c6cf2" stopOpacity={0.35} /><stop offset="1" stopColor="#7c6cf2" stopOpacity={0} /></linearGradient>
-          <linearGradient id="gb" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stopColor="#34d399" stopOpacity={0.35} /><stop offset="1" stopColor="#34d399" stopOpacity={0} /></linearGradient>
+          <linearGradient id="gl" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stopColor="#985a30" stopOpacity={0.35} /><stop offset="1" stopColor="#985a30" stopOpacity={0} /></linearGradient>
+          <linearGradient id="gb" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stopColor="#5c7964" stopOpacity={0.35} /><stop offset="1" stopColor="#5c7964" stopOpacity={0} /></linearGradient>
         </defs>
         <CartesianGrid stroke="var(--line)" strokeDasharray="3 3" vertical={false} />
         <XAxis dataKey="day" tick={AXIS} axisLine={false} tickLine={false} interval="preserveStartEnd" minTickGap={16} />
         <YAxis tick={AXIS} axisLine={false} tickLine={false} allowDecimals={false} />
         <Tooltip {...TIP} />
-        <Area type="monotone" dataKey="leads" name="Leads" stroke="#7c6cf2" strokeWidth={2} fill="url(#gl)" />
-        <Area type="monotone" dataKey="booked" name="Booked" stroke="#34d399" strokeWidth={2} fill="url(#gb)" />
+        <Area type="monotone" dataKey="leads" name="Leads" stroke="#985a30" strokeWidth={2} fill="url(#gl)" />
+        <Area type="monotone" dataKey="booked" name="Booked" stroke="#5c7964" strokeWidth={2} fill="url(#gb)" />
         <Area type="monotone" dataKey="blocked" name="Blocked" stroke="#fb7185" strokeWidth={1.5} fill="transparent" />
       </AreaChart>
     </ResponsiveContainer>
@@ -54,7 +54,7 @@ export function SpeedChart({ data }: { data: { name: string; medianMinutes: numb
   );
 }
 
-const PIE = ["#7c6cf2", "#38bdf8", "#34d399", "#fbbf24", "#f472b6"];
+const PIE = ["#985a30", "#787b70", "#5c7964", "#b69c6e", "#595b54"];
 export function SourceChart({ data }: { data: { source: string; leads: number }[] }) {
   return (
     <ResponsiveContainer width="100%" height={240}>
@@ -73,10 +73,10 @@ export function FunnelBars({ data }: { data: { stage: string; value: number }[] 
   const max = Math.max(1, ...data.map((d) => d.value));
   return (
     <ul className="flex flex-col gap-2.5">
-      {data.map((d, i) => (
+      {data.map((d) => (
         <li key={d.stage} className="grid grid-cols-[110px_1fr_44px] items-center gap-3 text-sm">
           <span className="truncate text-muted">{d.stage}</span>
-          <span className="h-3 overflow-hidden rounded-full bg-surface-2"><span className="block h-full rounded-full" style={{ width: `${(d.value / max) * 100}%`, background: `linear-gradient(90deg, #7c6cf2, ${["#7c6cf2", "#8b7cf6", "#38bdf8", "#22c3c3", "#34d399", "#10b981"][i]})` }} /></span>
+          <span className="h-3 overflow-hidden rounded-full bg-surface-2"><span className="block h-full rounded-full" style={{ width: `${(d.value / max) * 100}%`, background: "#985a30" }} /></span>
           <span className="text-right font-medium tabular-nums">{d.value}</span>
         </li>
       ))}

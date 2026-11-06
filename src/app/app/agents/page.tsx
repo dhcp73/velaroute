@@ -42,10 +42,10 @@ export default function Agents() {
           const s = stats[a.id as keyof typeof stats];
           return (
             <Card key={a.id} className="flex flex-col p-5">
-              <div className="flex items-center justify-between"><span className="grid h-10 w-10 place-items-center rounded-2xl bg-primary-100 text-primary-700 dark:bg-primary-500/15 dark:text-primary-200"><a.icon className="h-5 w-5" /></span><Chip tone="mint" dot>Running</Chip></div>
+              <div className="flex items-center justify-between"><span className="grid h-10 w-10 place-items-center rounded-lg bg-primary-100 text-primary-700 dark:bg-primary-500/15 dark:text-primary-200"><a.icon className="h-5 w-5" /></span><Chip tone="mint" dot>Running</Chip></div>
               <h2 className="mt-4 font-semibold">{a.name}</h2>
               <p className="mt-1 flex-1 text-sm text-muted">{a.does}</p>
-              <div className="mt-4 rounded-2xl bg-surface-2 p-3 text-xs"><p className="font-display text-xl font-semibold text-ink">{s.runs.toLocaleString()}</p><p className="text-muted">runs · {s.out}</p></div>
+              <div className="mt-4 rounded-lg bg-surface-2 p-3 text-xs"><p className="font-display text-xl font-semibold text-ink">{s.runs.toLocaleString()}</p><p className="text-muted">runs · {s.out}</p></div>
               <div className="mt-3 flex items-center justify-between gap-2 text-xs"><span className="truncate text-faint">{a.cfg}</span><Link href={a.href} className="shrink-0 font-medium text-primary-600 hover:underline dark:text-primary-300">Configure</Link></div>
             </Card>
           );

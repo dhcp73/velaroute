@@ -19,7 +19,7 @@ export default function DocsIndex() {
         <a href="/docs/api" className="card group flex items-start gap-4 p-6 hover:ring-2 hover:ring-primary-300"><Code2 className="h-6 w-6 shrink-0 text-primary-500" /><div><h2 className="font-semibold">API reference</h2><p className="mt-1 text-sm text-muted">Interactive OpenAPI 3.1 explorer.</p></div></a>
       </div>
       <h2 className="mt-12 font-display text-2xl font-semibold">Guides</h2>
-      <ul className="mt-4 divide-y divide-line rounded-3xl border border-line bg-surface">
+      <ul className="mt-4 divide-y divide-line rounded-xl border border-line bg-surface">
         {docs.map((d) => <li key={d.slug}><Link href={`/docs/${d.slug}`} className="flex items-center justify-between gap-4 p-5 hover:bg-surface-2"><div className="min-w-0"><p className="font-medium">{d.title}</p><p className="truncate text-sm text-muted">{d.description}</p></div><ArrowRight className="h-4 w-4 shrink-0 text-faint" /></Link></li>)}
       </ul>
     </div>

@@ -16,12 +16,12 @@ const CASES = [
 export default function CustomersPage() {
   return (
     <>
-      <PageHero eyebrow="Use cases" title={<>Made for teams that <span className="text-gradient">can&apos;t afford slow</span></>}>Velaroute is built for B2B SaaS companies with 3 to 50 reps — big enough to need routing, too small for a six-month enterprise rollout.</PageHero>
+      <PageHero eyebrow="Use cases" title={<>Made for teams that <span className="editorial-emphasis">can&apos;t afford slow</span></>}>Velaroute is built for B2B SaaS companies with 3 to 50 reps — big enough to need routing, too small for a six-month enterprise rollout.</PageHero>
       <Section className="!pt-0">
         <div className="grid gap-5 md:grid-cols-2">
           {CASES.map((c, i) => (
             <Reveal key={c.who} delay={(i % 2) * 0.06} className="card flex flex-col p-6 sm:p-8">
-              <div className="flex items-center gap-3"><span className="grid h-11 w-11 place-items-center rounded-2xl bg-primary-100 text-primary-700 dark:bg-primary-500/15 dark:text-primary-200"><c.icon className="h-5 w-5" /></span><div><h2 className="font-display text-xl font-semibold">{c.who}</h2><p className="text-sm text-muted">{c.team}</p></div></div>
+              <div className="flex items-center gap-3"><span className="grid h-11 w-11 place-items-center rounded-lg bg-primary-100 text-primary-700 dark:bg-primary-500/15 dark:text-primary-200"><c.icon className="h-5 w-5" /></span><div><h2 className="font-display text-xl font-semibold">{c.who}</h2><p className="text-sm text-muted">{c.team}</p></div></div>
               <p className="mt-5 text-muted"><span className="font-medium text-ink">The problem: </span>{c.pain}</p>
               <ul className="mt-4 space-y-2 text-sm">{c.how.map((h) => <li key={h} className="rounded-xl bg-surface-2 px-3 py-2">{h}</li>)}</ul>
               <p className="mt-5 font-medium text-primary-700 dark:text-primary-200">{c.result}</p>

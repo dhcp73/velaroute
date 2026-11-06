@@ -28,7 +28,7 @@ export default function Accounts() {
               const leads = ws.leads.filter((l) => l.accountId === a.id).length;
               return (
                 <li key={a.id} className="flex flex-wrap items-center gap-3 px-5 py-4 sm:flex-nowrap">
-                  <span className="grid h-10 w-10 shrink-0 place-items-center rounded-2xl bg-surface-2 font-display font-semibold">{a.name[0]}</span>
+                  <span className="grid h-10 w-10 shrink-0 place-items-center rounded-lg bg-surface-2 font-display font-semibold">{a.name[0]}</span>
                   <div className="min-w-0 flex-1"><p className="truncate font-medium">{a.name}</p><p className="truncate text-sm text-muted">{a.domain} · {a.employees.toLocaleString()} employees · {a.industry || "—"}</p></div>
                   <Chip tone={a.stage === "customer" ? "mint" : a.stage === "open_opp" ? "sky" : "slate"}>{a.stage.replace("_", " ")}</Chip>
                   <span className="hidden text-sm text-muted md:inline">{leads} lead{leads === 1 ? "" : "s"}</span>

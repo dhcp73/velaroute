@@ -30,7 +30,7 @@ export default function Analytics() {
         <Card>
           <CardHeader title="Enrichment spend" subtitle={`${money(a.monthSpendCents)} of ${money(a.capCents)} this month`} />
           <div className="p-5">
-            <div className="h-3 overflow-hidden rounded-full bg-surface-2"><div className="h-full rounded-full bg-gradient-to-r from-primary-400 to-sky-400" style={{ width: `${Math.min(100, (a.monthSpendCents / Math.max(1, a.capCents)) * 100)}%` }} /></div>
+            <div className="h-3 overflow-hidden rounded-full bg-surface-2"><div className="h-full rounded-full bg-primary-500" style={{ width: `${Math.min(100, (a.monthSpendCents / Math.max(1, a.capCents)) * 100)}%` }} /></div>
             <ul className="mt-4 divide-y divide-line text-sm">
               {a.spendByProvider.length === 0 && <li className="py-3 text-muted">No paid lookups in this period.</li>}
               {a.spendByProvider.map((s) => <li key={s.provider} className="flex justify-between py-2.5"><span className="capitalize">{s.provider}</span><span className="tabular-nums">{money(s.cents)}</span></li>)}

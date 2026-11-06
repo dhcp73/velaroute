@@ -4,15 +4,12 @@ import { Check, RotateCcw, Save } from "lucide-react";
 import { useWs } from "@/components/app/workspace";
 import { Loading, PageHeader } from "@/components/app/shell";
 import { Button, Card, CardHeader, Chip, Field, Input, Modal, Select, Toggle } from "@/components/ui";
-import type { Settings, Workspace } from "@/lib/engine/types";
+import { TIERS } from "@/lib/plans";
+import type { Settings } from "@/lib/engine/types";
 import { fmtDate, money } from "@/components/app/format";
 import { cn } from "@/lib/cn";
 
-const PLANS: { id: Workspace["plan"]; name: string; price: number; desc: string; features: string[] }[] = [
-  { id: "launch", name: "Launch", price: 99, desc: "For teams with up to 5 reps", features: ["1,000 inbound leads / month", "Forms, chat and email capture", "Rules + weighted round robin", "Instant booking", "HubSpot or Attio sync", "Email support"] },
-  { id: "scale", name: "Scale", price: 249, desc: "For teams with up to 20 reps", features: ["5,000 inbound leads / month", "Everything in Launch", "Enrichment waterfall + spend caps", "SLA agent with Slack escalation", "Copilot (bring your own model key)", "API, webhooks and MCP"] },
-  { id: "command", name: "Command", price: 499, desc: "For teams with up to 50 reps", features: ["20,000 inbound leads / month", "Everything in Scale", "Salesforce sync", "Multiple workspaces + roles", "Audit log export", "Priority support + onboarding"] },
-];
+const PLANS = TIERS.map((t) => ({ id: t.id, name: t.name, price: t.monthly, desc: `For teams with up to ${t.reps} reps`, features: [`${t.leads.toLocaleString("en-US")} inbound leads / month`, ...t.features] }));
 const PROVIDERS = ["apollo", "clay", "valyu"] as const;
 
 export default function SettingsPage() {
@@ -53,7 +50,7 @@ export default function SettingsPage() {
           <div className="grid gap-3 p-5 sm:grid-cols-2">
             <Field label="Send to review at score ≥" htmlFor="rev"><Input id="rev" type="number" min={1} max={99} value={s.botReviewScore} onChange={num("botReviewScore")} /></Field>
             <Field label="Block at score ≥" htmlFor="blk"><Input id="blk" type="number" min={2} max={100} value={s.botBlockScore} onChange={num("botBlockScore")} /></Field>
-            <label className="flex items-center justify-between gap-3 rounded-2xl bg-surface-2 p-3 text-sm sm:col-span-2">Always block disposable email domains<Toggle checked={s.blockDisposable} label="Block disposable" onChange={(v) => setS({ ...s, blockDisposable: v })} /></label>
+            <label className="flex items-center justify-between gap-3 rounded-lg bg-surface-2 p-3 text-sm sm:col-span-2">Always block disposable email domains<Toggle checked={s.blockDisposable} label="Block disposable" onChange={(v) => setS({ ...s, blockDisposable: v })} /></label>
           </div>
         </Card>
         <Card id="enrichment">
@@ -96,7 +93,7 @@ export default function SettingsPage() {
           </Card>
         ))}
       </div>
-      <p className="mt-3 text-xs text-muted">Billing is in test mode: switching plans changes limits here only. No card is charged.</p>
+      <p className="mt-3 text-xs text-muted">Billing is in test mode: switching plans changes the workspace tier only; quotas are not enforced in this demo. No card is charged.</p>
 
       <div className="mt-8 grid gap-4 lg:grid-cols-[1.5fr_1fr]">
         <Card>

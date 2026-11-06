@@ -1,3 +1,4 @@
+import { TIERS } from "../plans";
 import "server-only";
 import type { Account, Form, LeadInput, ProviderId, Rep, RoutingRule, Settings, Stage, Webhook, Workspace } from "../engine/types";
 import { STAGES } from "../engine/types";
@@ -113,7 +114,7 @@ export async function runAction(ws: Workspace, a: Action, actor: string, now = n
       const existing = a.rep.id ? ws.reps.find((r) => r.id === a.rep.id) : undefined;
       const clean = { ...a.rep, weight: Math.max(0, Math.min(10, Number(a.rep.weight ?? 1))), capacityPerDay: Math.max(1, Number(a.rep.capacityPerDay ?? 30)) };
       if (existing) Object.assign(existing, clean);
-      else ws.reps.push({ id: uid("rep"), title: "Account Executive", team: "smb", region: "NA", available: true, timezone: "America/New_York", workStart: 9, workEnd: 17, calendar: "none", color: ["#7c6cf2", "#38bdf8", "#34d399", "#fbbf24", "#f472b6", "#fb923c"][ws.reps.length % 6], ...clean } as Rep);
+      else ws.reps.push({ id: uid("rep"), title: "Account Executive", team: "smb", region: "NA", available: true, timezone: "America/New_York", workStart: 9, workEnd: 17, calendar: "none", color: ["#985a30", "#747d83", "#63786a", "#a08858", "#817378", "#987455"][ws.reps.length % 6], ...clean } as Rep);
       audit("team", `${existing ? "Updated" : "Added"} ${a.rep.name}`);
       break;
     }
@@ -241,7 +242,10 @@ export async function runAction(ws: Workspace, a: Action, actor: string, now = n
     }
     case "alerts.read": ws.alerts.forEach((x) => { x.read = true; }); break;
     case "workspace.rename": if (!a.name.trim()) throw new ActionError("Name is required"); ws.name = a.name.trim(); break;
-    case "workspace.plan": ws.plan = a.plan; audit("billing", `Plan changed to ${a.plan}`); break;
+    case "workspace.plan": {
+      if (!TIERS.some((t) => t.id === a.plan)) throw new ActionError("Unknown plan");
+      ws.plan = a.plan; ws.billingPlanVersion = 2; audit("billing", `Plan changed to ${a.plan}`); break;
+    }
     case "workspace.reset": { const fresh = resetWorkspace(ws.id); Object.keys(ws).forEach((k) => delete (ws as unknown as Record<string, unknown>)[k]); Object.assign(ws, fresh); break; }
     default: throw new ActionError("Unknown action");
   }

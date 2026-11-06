@@ -83,7 +83,7 @@ export default function Routing() {
             <Field label="Job title" htmlFor="rt-title"><Input id="rt-title" value={test.title} onChange={(e) => setTest({ ...test, title: e.target.value })} /></Field>
             <Button onClick={runTest} loading={busy}>Explain route</Button>
             {result && (
-              <div className="rounded-2xl bg-surface-2 p-4 text-sm" aria-live="polite">
+              <div className="rounded-lg bg-surface-2 p-4 text-sm" aria-live="polite">
                 <p className="font-semibold">{result.rep ? `→ ${result.rep}` : "Unassigned"}</p>
                 <p className="mt-1 text-muted">{result.reason}</p>
                 {result.company && <p className="mt-2 text-xs text-muted">{result.company.name} · {result.company.employees} employees · {result.company.region} · {result.company.industry} · ICP {result.icpScore}</p>}
@@ -127,7 +127,7 @@ export default function Routing() {
               <p className="label">Conditions</p>
               <div className="flex flex-col gap-2">
                 {draft.conditions.map((c, i) => (
-                  <div key={i} className="grid grid-cols-1 gap-2 rounded-2xl bg-surface-2 p-2 sm:grid-cols-[1.2fr_1fr_1fr_auto]">
+                  <div key={i} className="grid grid-cols-1 gap-2 rounded-lg bg-surface-2 p-2 sm:grid-cols-[1.2fr_1fr_1fr_auto]">
                     <Select aria-label="Field" value={c.field} onChange={(e) => { const cs = [...draft.conditions]; cs[i] = { ...c, field: e.target.value as RouteField }; setDraft({ ...draft, conditions: cs }); }}>{FIELDS.map((f) => <option key={f.id} value={f.id}>{f.label}</option>)}</Select>
                     <Select aria-label="Operator" value={c.op} onChange={(e) => { const cs = [...draft.conditions]; cs[i] = { ...c, op: e.target.value as RouteOp }; setDraft({ ...draft, conditions: cs }); }}>{OPS.map((o) => <option key={o.id} value={o.id}>{o.label}</option>)}</Select>
                     <div className="flex gap-2">{c.field === "answer" && <Input aria-label="Answer key" placeholder="field id" value={c.key ?? ""} onChange={(e) => { const cs = [...draft.conditions]; cs[i] = { ...c, key: e.target.value }; setDraft({ ...draft, conditions: cs }); }} />}<Input aria-label="Value" value={c.value} onChange={(e) => { const cs = [...draft.conditions]; cs[i] = { ...c, value: e.target.value }; setDraft({ ...draft, conditions: cs }); }} placeholder="value" /></div>

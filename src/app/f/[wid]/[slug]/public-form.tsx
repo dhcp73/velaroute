@@ -17,7 +17,6 @@ export function PublicForm({ wid, slug, initial, workspace, embed }: { wid: stri
   if (!ready) return <div className="min-h-dvh bg-bg" />;
   return (
     <div className={embed ? "bg-transparent p-2" : "relative min-h-dvh overflow-hidden bg-bg px-4 py-10"}>
-      {!embed && <div className="pointer-events-none absolute -top-40 left-1/2 h-[420px] w-[720px] -translate-x-1/2 rounded-full bg-primary-300/25 blur-3xl dark:bg-primary-500/10" aria-hidden />}
       <main className="relative mx-auto w-full max-w-xl">
         {!embed && <p className="mb-6 text-center text-sm font-medium text-muted">{workspace}</p>}
         <div className="card p-6 shadow-xl shadow-primary-500/5 sm:p-8">

@@ -35,7 +35,7 @@ export function AuthForm({ mode }: { mode: "login" | "signup" }) {
         <Button type="submit" size="lg" loading={busy}>{mode === "login" ? "Log in" : "Create workspace"}</Button>
       </form>
       {mode === "login" && (
-        <div className="mt-4 rounded-2xl border border-dashed border-line p-4 text-sm">
+        <div className="mt-4 rounded-lg border border-dashed border-line p-4 text-sm">
           <p className="font-medium">Try the demo workspace</p>
           <div className="mt-2 flex flex-wrap gap-2">
             <Button size="sm" variant="tonal" onClick={() => demo("demo@velaroute.dev", "demo1234")}>Fill demo login</Button>

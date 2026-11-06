@@ -10,13 +10,14 @@ const BASE = process.env.BASE_URL ?? "http://localhost:3300";
 const DOCS = path.join(process.cwd(), "public/docs/screens");
 const QA = path.join(process.cwd(), "reports/screens");
 const ONLY_QA = process.argv.includes("--qa");
+const APP_ONLY = process.argv.includes("--app-only");
 
 const APP_SHOTS: [string, string][] = [
   ["overview", "/app"], ["inbox", "/app/inbox"], ["routing", "/app/routing"], ["forms", "/app/forms"], ["form-builder", "/app/forms/frm_demo"],
   ["analytics", "/app/analytics"], ["settings", "/app/settings"], ["integrations", "/app/settings/integrations"], ["developers", "/app/settings/developers"], ["health", "/app/health"],
   ["meetings", "/app/meetings"], ["agents", "/app/agents"], ["accounts", "/app/accounts"],
 ];
-const SITE = ["/", "/product", "/how-it-works", "/pricing", "/customers", "/about", "/blog", "/blog/fair-round-robin", "/docs", "/docs/routing", "/contact", "/status", "/changelog", "/careers", "/security", "/legal/privacy", "/login", "/signup", "/f/ws_demo/book-a-demo"];
+const SITE = ["/", "/product", "/how-it-works", "/pricing", "/customers", "/about", "/blog", "/blog/fair-round-robin", "/docs", "/docs/routing", "/contact", "/status", "/changelog", "/careers", "/security", "/legal/privacy", "/legal/terms", "/legal/dpa", "/login", "/signup", "/f/ws_demo/book-a-demo"];
 
 async function settle(page: Page) {
   await page.waitForLoadState("networkidle").catch(() => {});
@@ -42,6 +43,7 @@ async function main() {
     await page.screenshot({ path: path.join(QA, `app-${name}.png`), fullPage: true });
     console.log("app", name);
   }
+  if (APP_ONLY) { await browser.close(); return; }
   for (const theme of ["light", "dark"]) {
     await page.evaluate((t) => localStorage.setItem("theme", t), theme);
     for (const vw of [1280, 375]) {

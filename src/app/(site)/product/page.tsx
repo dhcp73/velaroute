@@ -19,7 +19,7 @@ const DEEP = [
 export default function ProductPage() {
   return (
     <>
-      <PageHero eyebrow="Product" title={<>The whole inbound motion, <span className="text-gradient">automated</span></>}>
+      <PageHero eyebrow="Product" title={<>The whole inbound motion, <span className="editorial-emphasis">automated</span></>}>
         Velaroute replaces the form tool, the router, the scheduler and the spreadsheet that tracks who followed up. One pipeline, one trace, one bill.
         <div className="mt-8 flex flex-col justify-center gap-3 sm:flex-row"><Link href="/signup" className={buttonClass("primary", "lg")}>Start free</Link><Link href="/login?demo=1" className={buttonClass("secondary", "lg")}>Open the demo</Link></div>
       </PageHero>

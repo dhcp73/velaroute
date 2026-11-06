@@ -52,7 +52,7 @@ export default function LeadPage() {
       <Link href="/app/inbox" className="mb-4 inline-flex items-center gap-1.5 text-sm text-muted hover:text-ink"><ArrowLeft className="h-4 w-4" />Inbox</Link>
       <div className="mb-6 flex flex-wrap items-start justify-between gap-4">
         <div className="flex min-w-0 items-center gap-4">
-          <Avatar name={lead.name} size={52} color="#9580fb" />
+          <Avatar name={lead.name} size={52} color="#b78351" />
           <div className="min-w-0">
             <h1 className="truncate font-display text-2xl font-semibold tracking-tight">{lead.name}</h1>
             <p className="truncate text-sm text-muted">{[lead.title, lead.company || lead.domain].filter(Boolean).join(" · ")}</p>
@@ -90,7 +90,7 @@ export default function LeadPage() {
             </div>
             <div className="p-5">
               {ai ? (
-                <div className="rounded-2xl bg-surface-2 p-4">
+                <div className="rounded-lg bg-surface-2 p-4">
                   <div className="mb-2 flex items-center justify-between gap-2"><Chip tone={ai.simulated ? "slate" : "violet"}><Bot className="h-3 w-3" />{ai.simulated ? "Built-in draft" : ai.provider}</Chip>
                     <button type="button" className="inline-flex items-center gap-1 text-xs font-medium text-primary-600 hover:underline dark:text-primary-300" onClick={() => { void navigator.clipboard?.writeText(ai.text); toast("Copied"); }}><Copy className="h-3.5 w-3.5" />Copy</button></div>
                   <pre className="whitespace-pre-wrap break-words font-sans text-sm leading-relaxed">{ai.text}</pre>

@@ -161,7 +161,8 @@ export interface Settings {
 export interface Workspace {
   id: string;
   name: string;
-  plan: "launch" | "scale" | "command";
+  plan: import("../plans").PlanId;
+  billingPlanVersion?: number;
   createdAt: string;
   version: number;
   reps: Rep[];

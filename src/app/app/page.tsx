@@ -83,7 +83,7 @@ export default function Overview() {
               ["Book", `${ws.leads.filter((l) => l.meeting?.status === "booked").length} upcoming meetings`],
               ["CRM sync", `${ws.crm.filter((c) => c.status === "ok").length} events → ${ws.settings.crmTarget}`],
             ].map(([k, v]) => (
-              <li key={k} className="rounded-2xl bg-surface-2 p-3"><p className="flex items-center gap-1.5 text-sm font-semibold"><span className="h-2 w-2 rounded-full bg-emerald-500" />{k}</p><p className="mt-1 text-xs text-muted">{v}</p></li>
+              <li key={k} className="rounded-lg bg-surface-2 p-3"><p className="flex items-center gap-1.5 text-sm font-semibold"><span className="h-2 w-2 rounded-full bg-emerald-500" />{k}</p><p className="mt-1 text-xs text-muted">{v}</p></li>
             ))}
           </ul>
           <div className="flex flex-wrap items-center justify-between gap-3 border-t border-line px-5 py-4">

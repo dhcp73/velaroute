@@ -11,7 +11,7 @@ export const Button = forwardRef<HTMLButtonElement, ButtonHTMLAttributes<HTMLBut
   function Button({ variant = "primary", size = "md", loading, icon, className, children, disabled, type = "button", ...rest }, ref) {
     return (
       <button ref={ref} type={type} disabled={disabled || loading} className={cn(
-        "inline-flex items-center justify-center gap-2 rounded-full font-medium transition-colors disabled:cursor-not-allowed disabled:opacity-55 whitespace-nowrap",
+        "inline-flex items-center justify-center gap-2 rounded-md font-medium transition-colors disabled:cursor-not-allowed disabled:opacity-55 whitespace-nowrap",
         size === "sm" ? "h-8 px-3 text-[13px]" : size === "lg" ? "h-12 px-6 text-[15px]" : "h-10 px-4 text-sm",
         VARIANTS[variant], className)} {...rest}>
         {loading ? <Loader2 className="h-4 w-4 animate-spin" aria-hidden /> : icon}
@@ -91,8 +91,8 @@ export function Modal({ open, onClose, title, children, footer, wide }: { open: 
   if (!open || typeof document === "undefined") return null;
   return createPortal(
     <div className="fixed inset-0 z-[100] flex items-end justify-center p-0 sm:items-center sm:p-4" role="dialog" aria-modal="true" aria-label={title}>
-      <div className="absolute inset-0 bg-[#0d0e16]/45 backdrop-blur-[2px]" onClick={onClose} />
-      <div ref={ref} className={cn("relative flex max-h-[92dvh] w-full flex-col overflow-hidden rounded-t-3xl border border-line bg-surface shadow-2xl sm:rounded-3xl", wide ? "sm:max-w-3xl" : "sm:max-w-lg")}>
+      <div className="absolute inset-0 bg-[#141413]/45 backdrop-blur-[2px]" onClick={onClose} />
+      <div ref={ref} className={cn("relative flex max-h-[92dvh] w-full flex-col overflow-hidden rounded-t-3xl border border-line bg-surface shadow-2xl sm:rounded-xl", wide ? "sm:max-w-3xl" : "sm:max-w-lg")}>
         <div className="flex items-center justify-between gap-4 border-b border-line px-5 py-4">
           <h2 className="text-base font-semibold">{title}</h2>
           <button data-close type="button" onClick={onClose} className="rounded-full p-1.5 text-muted hover:bg-surface-2 hover:text-ink" aria-label="Close"><X className="h-4 w-4" /></button>
@@ -108,7 +108,7 @@ export function Modal({ open, onClose, title, children, footer, wide }: { open: 
 export function Empty({ icon, title, body, action }: { icon?: ReactNode; title: string; body?: string; action?: ReactNode }) {
   return (
     <div className="flex flex-col items-center justify-center px-6 py-12 text-center">
-      {icon && <div className="mb-3 grid h-12 w-12 place-items-center rounded-2xl bg-primary-100 text-primary-700 dark:bg-primary-500/15 dark:text-primary-200">{icon}</div>}
+      {icon && <div className="mb-3 grid h-12 w-12 place-items-center rounded-lg bg-primary-100 text-primary-700 dark:bg-primary-500/15 dark:text-primary-200">{icon}</div>}
       <p className="font-medium">{title}</p>
       {body && <p className="mt-1 max-w-sm text-sm text-muted">{body}</p>}
       {action && <div className="mt-4">{action}</div>}
@@ -118,7 +118,7 @@ export function Empty({ icon, title, body, action }: { icon?: ReactNode; title: 
 
 export function Avatar({ name, color, size = 28 }: { name: string; color?: string; size?: number }) {
   const initials = name.split(/\s+/).map((p) => p[0]).filter(Boolean).slice(0, 2).join("").toUpperCase();
-  return <span className="inline-grid shrink-0 place-items-center rounded-full font-semibold text-white" style={{ width: size, height: size, fontSize: size * 0.38, background: color || "#7c6cf2" }} aria-hidden>{initials}</span>;
+  return <span className="inline-grid shrink-0 place-items-center rounded-full font-semibold text-white" style={{ width: size, height: size, fontSize: size * 0.38, background: color || "#985a30" }} aria-hidden>{initials}</span>;
 }
 
 export function Stat({ label, value, hint, tone = "violet", icon }: { label: string; value: ReactNode; hint?: ReactNode; tone?: Tone; icon?: ReactNode }) {

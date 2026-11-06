@@ -16,7 +16,7 @@ const ITEMS = [
 export default function SecurityPage() {
   return (
     <>
-      <PageHero eyebrow="Security" title={<>Security is a <span className="text-gradient">feature</span></>}>Velaroute handles your buyers&apos; contact details and your CRM credentials. Here is how we protect them.</PageHero>
+      <PageHero eyebrow="Security" title={<>Security is a <span className="editorial-emphasis">feature</span></>}>Velaroute handles your buyers&apos; contact details and your CRM credentials. Here is how we protect them.</PageHero>
       <Section className="!pt-0">
         <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
           {ITEMS.map((x) => <div key={x.t} className="card p-6"><x.i className="h-6 w-6 text-primary-500" /><h2 className="mt-3 font-display text-lg font-semibold">{x.t}</h2><p className="mt-2 text-sm text-muted">{x.d}</p></div>)}

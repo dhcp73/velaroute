@@ -46,7 +46,7 @@ function NavList({ onNavigate }: { onNavigate?: () => void }) {
               return (
                 <li key={i.href}>
                   <Link href={i.href} onClick={onNavigate} aria-current={active ? "page" : undefined}
-                    className={cn("flex h-9 items-center gap-3 rounded-full px-3 text-[14px] font-medium transition-colors", active ? "bg-primary-100 text-primary-800 dark:bg-primary-500/15 dark:text-primary-100" : "text-muted hover:bg-surface-2 hover:text-ink")}>
+                    className={cn("flex h-9 items-center gap-3 rounded-md border-l-2 px-3 text-[14px] font-medium transition-colors", active ? "border-primary-500 bg-surface-2 text-ink" : "border-transparent text-muted hover:bg-surface-2 hover:text-ink")}>
                     <i.icon className="h-[18px] w-[18px] shrink-0" aria-hidden />
                     <span className="flex-1 truncate">{i.label}</span>
                     {i.href === "/app/inbox" && unread > 0 && <span className="rounded-full bg-primary-500 px-1.5 text-[11px] font-semibold leading-5 text-white">{unread}</span>}
@@ -78,8 +78,8 @@ function Palette({ open, onClose }: { open: boolean; onClose: () => void }) {
   const go = (href: string) => { onClose(); router.push(href); };
   return (
     <div className="fixed inset-0 z-[110] flex items-start justify-center p-4 pt-[12vh]" role="dialog" aria-modal="true" aria-label="Search">
-      <div className="absolute inset-0 bg-[#0d0e16]/40" onClick={onClose} />
-      <div className="relative w-full max-w-lg overflow-hidden rounded-3xl border border-line bg-surface shadow-2xl">
+      <div className="absolute inset-0 bg-[#141413]/40" onClick={onClose} />
+      <div className="relative w-full max-w-lg overflow-hidden rounded-xl border border-line bg-surface shadow-2xl">
         <div className="flex items-center gap-2 border-b border-line px-4">
           <Search className="h-4 w-4 text-faint" aria-hidden />
           <input ref={input} value={q} onChange={(e) => { setQ(e.target.value); setIdx(0); }} placeholder="Search leads and pages…" aria-label="Search"
@@ -118,7 +118,7 @@ function Alerts() {
         {unread > 0 && <span className="absolute right-1.5 top-1.5 h-2 w-2 rounded-full bg-rose-500 ring-2 ring-surface" />}
       </button>
       {open && (
-        <div className="absolute right-0 top-11 z-50 w-[min(92vw,380px)] overflow-hidden rounded-2xl border border-line bg-surface shadow-xl">
+        <div className="absolute right-0 top-11 z-50 w-[min(92vw,380px)] overflow-hidden rounded-lg border border-line bg-surface shadow-xl">
           <div className="flex items-center justify-between border-b border-line px-4 py-3">
             <p className="text-sm font-semibold">Alerts</p>
             <button type="button" className="text-xs font-medium text-primary-600 hover:underline dark:text-primary-300" onClick={() => dispatch({ type: "alerts.read" }, { quiet: true })}>Mark all read</button>
@@ -155,7 +155,7 @@ function UserMenu() {
         <ChevronDown className="h-4 w-4 text-faint" />
       </button>
       {open && (
-        <div className="absolute right-0 top-11 z-50 w-64 overflow-hidden rounded-2xl border border-line bg-surface p-1.5 shadow-xl">
+        <div className="absolute right-0 top-11 z-50 w-64 overflow-hidden rounded-lg border border-line bg-surface p-1.5 shadow-xl">
           <div className="px-3 py-2"><p className="truncate text-sm font-semibold">{user.name}</p><p className="truncate text-xs text-muted">{user.email}</p><p className="mt-1 truncate text-xs text-faint">{ws?.name} · {user.role}</p></div>
           <Link href="/docs" className="flex items-center gap-2 rounded-xl px-3 py-2 text-sm hover:bg-surface-2"><BookOpen className="h-4 w-4" />Documentation</Link>
           <Link href="/" className="flex items-center gap-2 rounded-xl px-3 py-2 text-sm hover:bg-surface-2"><ExternalLink className="h-4 w-4" />Website</Link>
@@ -177,18 +177,18 @@ export function AppShell({ children }: { children: ReactNode }) {
     window.addEventListener("keydown", h); return () => window.removeEventListener("keydown", h);
   }, []);
   return (
-    <div className="min-h-dvh bg-bg">
+    <div className="app-shell min-h-dvh bg-bg">
       <aside className="fixed inset-y-0 left-0 z-40 hidden w-60 flex-col border-r border-line bg-surface px-3 py-4 lg:flex">
         <Link href="/app" className="mb-6 flex items-center gap-2 px-2 font-display text-[17px] font-semibold"><LogoMark />Velaroute</Link>
         <div className="min-h-0 flex-1 overflow-y-auto scrollbar-thin"><NavList /></div>
-        <div className="mt-4 rounded-2xl bg-surface-2 p-3 text-xs text-muted">
+        <div className="mt-4 rounded-lg bg-surface-2 p-3 text-xs text-muted">
           <p className="truncate font-semibold text-ink">{ws?.name ?? "…"}</p>
           <p className="mt-0.5 capitalize">{ws?.plan ?? ""} plan{BROWSER_MODE ? " · demo storage" : ""}</p>
         </div>
       </aside>
       {drawer && (
         <div className="fixed inset-0 z-[90] lg:hidden" role="dialog" aria-modal="true" aria-label="Navigation">
-          <div className="absolute inset-0 bg-[#0d0e16]/40" onClick={() => setDrawer(false)} />
+          <div className="absolute inset-0 bg-[#141413]/40" onClick={() => setDrawer(false)} />
           <div className="absolute inset-y-0 left-0 flex w-72 max-w-[85vw] flex-col bg-surface px-3 py-4 shadow-2xl">
             <div className="mb-6 flex items-center justify-between px-2"><span className="flex items-center gap-2 font-display font-semibold"><LogoMark />Velaroute</span><button type="button" onClick={() => setDrawer(false)} className="rounded-full p-2 hover:bg-surface-2" aria-label="Close menu"><X className="h-5 w-5" /></button></div>
             <div className="min-h-0 flex-1 overflow-y-auto"><NavList onNavigate={() => setDrawer(false)} /></div>
@@ -196,10 +196,10 @@ export function AppShell({ children }: { children: ReactNode }) {
         </div>
       )}
       <div className="lg:pl-60">
-        {BROWSER_MODE && <div className="bg-primary-100 px-4 py-1.5 text-center text-xs text-primary-900 dark:bg-primary-500/15 dark:text-primary-100">Demo mode: your workspace is saved in this browser. Connect a database for permanent storage.</div>}
+        {BROWSER_MODE && <div className="border-b border-line bg-surface-2 px-4 py-2 text-center text-xs leading-5 text-muted">Demo mode: your workspace is saved in this browser. Connect a database for permanent storage.</div>}
         <header className="sticky top-0 z-30 flex h-16 items-center gap-2 border-b border-line bg-bg/85 px-4 backdrop-blur-md sm:px-6">
           <button type="button" className="grid h-9 w-9 place-items-center rounded-full hover:bg-surface-2 lg:hidden" onClick={() => setDrawer(true)} aria-label="Open menu"><Menu className="h-5 w-5" /></button>
-          <button type="button" onClick={() => setPalette(true)} className="flex h-10 min-w-0 max-w-md flex-1 items-center gap-2 rounded-full border border-line bg-surface px-4 text-left text-sm text-faint hover:border-primary-300">
+          <button type="button" onClick={() => setPalette(true)} className="flex h-10 min-w-0 max-w-md flex-1 items-center gap-2 rounded-md border border-line bg-surface px-4 text-left text-sm text-faint hover:border-primary-300">
             <Search className="h-4 w-4 shrink-0" /><span className="truncate">Search leads, pages…</span><kbd className="ml-auto hidden rounded-md border border-line px-1.5 text-[11px] sm:inline">⌘K</kbd>
           </button>
           <div className="ml-auto flex items-center gap-1"><ThemeToggle /><Alerts /><UserMenu /></div>
@@ -226,7 +226,7 @@ export function PageHeader({ title, subtitle, actions }: { title: string; subtit
 export function Loading() {
   return (
     <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-4" aria-busy="true" aria-label="Loading">
-      {Array.from({ length: 8 }).map((_, i) => <div key={i} className="h-28 animate-pulse rounded-2xl bg-surface-2" />)}
+      {Array.from({ length: 8 }).map((_, i) => <div key={i} className="h-28 animate-pulse rounded-lg bg-surface-2" />)}
     </div>
   );
 }

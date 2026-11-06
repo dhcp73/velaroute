@@ -15,7 +15,7 @@ const VALUES = [
 export default function AboutPage() {
   return (
     <>
-      <PageHero eyebrow="About" title={<>A <span className="text-gradient">vela</span> catches the wind. A route gets you there.</>}>Velaroute exists so that no good lead waits — and nobody has to guess why it went where it went.</PageHero>
+      <PageHero eyebrow="About" title={<>A <span className="editorial-emphasis">vela</span> catches the wind. A route gets you there.</>}>Velaroute exists so that no good lead waits — and nobody has to guess why it went where it went.</PageHero>
       <Section className="!pt-0">
         <Reveal className="prose prose-lg mx-auto max-w-3xl dark:prose-invert">
           <h2>The founding story</h2>

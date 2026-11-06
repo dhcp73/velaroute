@@ -68,7 +68,7 @@ export default function FormBuilder() {
                   </div>
                   <ul className="mt-3 flex flex-col gap-2">
                     {s.fields.map((f, fi) => (
-                      <li key={f.id + fi} className="rounded-2xl bg-surface-2 p-3">
+                      <li key={f.id + fi} className="rounded-lg bg-surface-2 p-3">
                         <div className="grid gap-2 sm:grid-cols-[1.4fr_1fr_auto]">
                           <Input aria-label="Field label" value={f.label} onChange={(e) => updField(si, fi, { label: e.target.value })} />
                           <Select aria-label="Field type" value={f.type} onChange={(e) => updField(si, fi, { type: e.target.value as FieldType, options: ["buttons", "select"].includes(e.target.value) ? f.options ?? ["Option A", "Option B"] : undefined })}>{TYPES.map((t) => <option key={t.id} value={t.id}>{t.label}</option>)}</Select>
@@ -99,7 +99,7 @@ export default function FormBuilder() {
                   const step = form.steps.find((s) => s.id === r.stepId);
                   const setR = (p: Partial<typeof r>) => { const logic = [...form.logic]; logic[i] = { ...r, ...p }; upd({ logic }); };
                   return (
-                    <div key={r.id} className="grid gap-2 rounded-2xl bg-surface-2 p-3 md:grid-cols-[1fr_1fr_0.8fr_1fr_1fr_auto] md:items-center">
+                    <div key={r.id} className="grid gap-2 rounded-lg bg-surface-2 p-3 md:grid-cols-[1fr_1fr_0.8fr_1fr_1fr_auto] md:items-center">
                       <Select aria-label="On step" value={r.stepId} onChange={(e) => setR({ stepId: e.target.value, fieldId: form.steps.find((s) => s.id === e.target.value)?.fields[0]?.id ?? "" })}>{form.steps.map((s, k) => <option key={s.id} value={s.id}>On step {k + 1}</option>)}</Select>
                       <Select aria-label="If field" value={r.fieldId} onChange={(e) => setR({ fieldId: e.target.value })}>{(step?.fields ?? []).map((f) => <option key={f.id} value={f.id}>{f.label}</option>)}</Select>
                       <Select aria-label="Operator" value={r.op} onChange={(e) => setR({ op: e.target.value as LogicOp })}>{OPS.map((o) => <option key={o.id} value={o.id}>{o.label}</option>)}</Select>
@@ -127,7 +127,7 @@ export default function FormBuilder() {
         <div className="min-w-0">
           <Card className="sticky top-20">
             <CardHeader title="Live preview" subtitle={dirty ? "Showing unsaved changes. Preview submissions create real leads." : "Preview submissions create real leads and run the full pipeline."} action={<Button size="sm" variant="ghost" onClick={() => setPreviewKey((k) => k + 1)}>Reset</Button>} />
-            <div className="p-5"><div className="rounded-3xl border border-line bg-bg p-5 sm:p-6"><HostedForm key={previewKey} form={form} wid={ws.id} preview onSubmitted={() => void reload()} /></div></div>
+            <div className="p-5"><div className="rounded-xl border border-line bg-bg p-5 sm:p-6"><HostedForm key={previewKey} form={form} wid={ws.id} preview onSubmitted={() => void reload()} /></div></div>
           </Card>
         </div>
       </div>

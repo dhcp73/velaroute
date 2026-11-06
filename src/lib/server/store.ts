@@ -1,4 +1,5 @@
 import "server-only";
+import { migratePlan } from "../plans";
 import path from "node:path";
 import fs from "node:fs";
 import { createRequire } from "node:module";
@@ -42,17 +43,18 @@ export function seedFor(wid: string): Workspace {
 export function loadWorkspace(wid: string, snapshot?: unknown): Workspace {
   if (storageMode() === "sqlite") {
     const row = db().prepare("SELECT json FROM workspaces WHERE id = ?").get(wid) as { json: string } | undefined;
-    if (row) return JSON.parse(row.json) as Workspace;
+    if (row) return migratePlan(JSON.parse(row.json) as Workspace);
     const ws = seedFor(wid);
     saveWorkspace(ws);
     return ws;
   }
   if (isWorkspace(snapshot, wid)) {
-    mem().set(wid, snapshot);
-    return structuredClone(snapshot);
+    const normalized = migratePlan(snapshot);
+    mem().set(wid, normalized);
+    return structuredClone(normalized);
   }
   const m = mem().get(wid);
-  if (m) return structuredClone(m);
+  if (m) return migratePlan(structuredClone(m));
   const ws = seedFor(wid);
   mem().set(wid, ws);
   return structuredClone(ws);

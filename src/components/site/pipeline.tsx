@@ -23,11 +23,11 @@ export function PipelineFlow({ compact = false }: { compact?: boolean }) {
           const on = i === cur, done = i < cur;
           return (
             <button key={s.id} type="button" onMouseEnter={() => setHover(i)} onMouseLeave={() => setHover(null)} onFocus={() => setHover(i)} onBlur={() => setHover(null)}
-              className={cn("group relative flex flex-col items-center gap-2 rounded-2xl border p-3 text-center transition-colors", on ? "border-primary-400 bg-primary-50/80 dark:bg-primary-500/10" : "border-line bg-surface/70 hover:border-primary-300")}
+              className={cn("group relative flex flex-col items-center gap-2 rounded-lg border p-3 text-center transition-colors", on ? "border-primary-400 bg-primary-50/80 dark:bg-primary-500/10" : "border-line bg-surface/70 hover:border-primary-300")}
               aria-pressed={on} aria-label={`${s.name}: ${s.text}`}>
-              <span className={cn("relative grid h-11 w-11 place-items-center rounded-2xl transition-colors", on ? "bg-primary-500 text-white" : done ? "bg-primary-100 text-primary-700 dark:bg-primary-500/20 dark:text-primary-200" : "bg-surface-2 text-muted")}>
+              <span className={cn("relative grid h-11 w-11 place-items-center rounded-lg transition-colors", on ? "bg-primary-500 text-white" : done ? "bg-primary-100 text-primary-700 dark:bg-primary-500/20 dark:text-primary-200" : "bg-surface-2 text-muted")}>
                 <s.icon className="h-5 w-5" />
-                {on && !reduce && <motion.span layoutId="pulse" className="absolute inset-0 rounded-2xl ring-4 ring-primary-400/40" transition={{ type: "spring", stiffness: 300, damping: 30 }} />}
+                {on && !reduce && <motion.span layoutId="pulse" className="absolute inset-0 rounded-lg ring-4 ring-primary-400/40" transition={{ type: "spring", stiffness: 300, damping: 30 }} />}
               </span>
               <span className="text-[13px] font-semibold">{s.name}</span>
             </button>
@@ -35,11 +35,11 @@ export function PipelineFlow({ compact = false }: { compact?: boolean }) {
         })}
       </div>
       <div className="mt-4 h-1.5 overflow-hidden rounded-full bg-surface-2" aria-hidden>
-        <motion.div className="h-full rounded-full bg-gradient-to-r from-primary-500 via-sky-400 to-emerald-400" animate={{ width: `${((cur + 1) / STAGES.length) * 100}%` }} transition={{ duration: reduce ? 0 : 0.5, ease: "easeOut" }} />
+        <motion.div className="h-full rounded-full bg-primary-500" animate={{ width: `${((cur + 1) / STAGES.length) * 100}%` }} transition={{ duration: reduce ? 0 : 0.5, ease: "easeOut" }} />
       </div>
-      <motion.div key={cur} initial={reduce ? false : { opacity: 0, y: 8 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.35 }} className="mt-4 flex flex-col gap-2 rounded-2xl border border-line bg-surface/80 p-4 backdrop-blur sm:flex-row sm:items-center sm:justify-between" aria-live="polite">
+      <motion.div key={cur} initial={reduce ? false : { opacity: 0, y: 8 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.35 }} className="mt-4 flex flex-col gap-2 rounded-lg border border-line bg-surface/80 p-4 backdrop-blur sm:flex-row sm:items-center sm:justify-between" aria-live="polite">
         <p className="text-sm"><span className="font-semibold">{STAGES[cur].name}.</span> <span className="text-muted">{STAGES[cur].text}</span></p>
-        <code className="shrink-0 rounded-xl bg-[#14152a] px-3 py-1.5 text-xs text-[#d4ccff]">{STAGES[cur].out}</code>
+        <code className="min-w-0 break-words rounded-md bg-[#20211e] px-3 py-1.5 text-xs text-[#e2dfd5]">{STAGES[cur].out}</code>
       </motion.div>
     </div>
   );

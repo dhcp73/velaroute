@@ -1,5 +1,6 @@
 "use client";
 import { createContext, useCallback, useContext, useEffect, useMemo, useRef, useState, type ReactNode } from "react";
+import { migratePlan } from "@/lib/plans";
 import type { Workspace } from "@/lib/engine/types";
 import type { Action } from "@/lib/server/service";
 import { CheckCircle2, AlertCircle } from "lucide-react";
@@ -9,7 +10,7 @@ export const snapKey = (wid: string) => `vr:ws:${wid}`;
 
 export function readSnapshot(wid: string): Workspace | undefined {
   if (typeof window === "undefined") return undefined;
-  try { const raw = localStorage.getItem(snapKey(wid)); return raw ? (JSON.parse(raw) as Workspace) : undefined; } catch { return undefined; }
+  try { const raw = localStorage.getItem(snapKey(wid)); return raw ? migratePlan(JSON.parse(raw) as Workspace) : undefined; } catch { return undefined; }
 }
 export function writeSnapshot(ws: Workspace) {
   try { localStorage.setItem(snapKey(ws.id), JSON.stringify(ws)); } catch { /* quota — demo only */ }
@@ -96,7 +97,7 @@ export function WorkspaceProvider({ wid, user, children }: { wid: string; user: 
       {children}
       <div className="pointer-events-none fixed bottom-4 left-1/2 z-[120] flex w-[min(92vw,420px)] -translate-x-1/2 flex-col gap-2" aria-live="polite">
         {toasts.map((t) => (
-          <div key={t.id} className="pointer-events-auto flex items-start gap-2 rounded-2xl border border-line bg-surface px-4 py-3 text-sm shadow-lg" role="status">
+          <div key={t.id} className="pointer-events-auto flex items-start gap-2 rounded-lg border border-line bg-surface px-4 py-3 text-sm shadow-lg" role="status">
             {t.tone === "ok" ? <CheckCircle2 className="mt-0.5 h-4 w-4 shrink-0 text-emerald-500" /> : <AlertCircle className="mt-0.5 h-4 w-4 shrink-0 text-rose-500" />}
             <span>{t.text}</span>
           </div>

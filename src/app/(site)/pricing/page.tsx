@@ -27,11 +27,11 @@ const ROWS: [string, boolean | string, boolean | string, boolean | string][] = [
 export default function PricingPage() {
   return (
     <>
-      <PageHero eyebrow="Pricing" title={<>Priced for teams of <span className="text-gradient">3 to 50 reps</span></>}>Every plan includes a 14-day free trial and sandbox mode. Bring your own Apollo, Clay, Valyu and AI keys — you pay providers directly, at cost.</PageHero>
+      <PageHero eyebrow="Pricing" title={<>Priced for teams of <span className="editorial-emphasis">3 to 50 reps</span></>}>Every plan includes a 14-day free trial and sandbox mode. Bring your own Apollo, Clay, Valyu and AI keys — you pay providers directly, at cost.</PageHero>
       <Section className="!pt-0"><Plans /></Section>
       <Section className="!pt-0">
         <SectionTitle title="Compare plans" />
-        <div className="mt-10 overflow-x-auto rounded-3xl border border-line bg-surface">
+        <div className="mt-10 overflow-x-auto rounded-xl border border-line bg-surface">
           <table className="w-full min-w-[560px] text-sm">
             <thead><tr className="border-b border-line text-left"><th className="p-4 font-medium text-muted">Feature</th>{["Starter", "Growth", "Scale"].map((h) => <th key={h} className="p-4 text-center font-semibold">{h}</th>)}</tr></thead>
             <tbody>{ROWS.map(([f, ...c]) => (
@@ -43,7 +43,7 @@ export default function PricingPage() {
       <Section className="!pt-0">
         <SectionTitle title="Pricing questions" />
         <div className="mx-auto mt-10 grid max-w-5xl gap-4 md:grid-cols-2">
-          {[{ q: "What counts as a lead?", a: "Any submission that passes the guard. Spam and blocked submissions are free and never count toward your limit." }, { q: "What if we go over?", a: "We never cut off routing. You will get an email at 80% and 100%; if you stay over for two months we will suggest the next plan." }, { q: "Do you charge for enrichment?", a: "No markup. Enrichment and AI use your own provider keys, and the spend cap stops calls before you overspend." }, ...FAQ.slice(5)].map((f) => (
+          {[{ q: "What counts as a lead?", a: "Any submission that passes the guard. Spam and blocked submissions are free and never count toward your limit." }, { q: "What if we go over?", a: "This is currently a test-billing demo. Routing is not cut off by quota, no card is charged, and automated usage emails are not configured." }, { q: "Do you charge for enrichment?", a: "No markup. Enrichment and AI use your own provider keys, and the spend cap stops calls before you overspend." }, ...FAQ.slice(5)].map((f) => (
             <div key={f.q} className="card p-6"><h3 className="font-semibold">{f.q}</h3><p className="mt-2 text-sm text-muted">{f.a}</p></div>
           ))}
         </div>

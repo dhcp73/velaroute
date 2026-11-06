@@ -21,7 +21,7 @@ const DETAIL: Record<string, string[]> = {
 export default function HowItWorks() {
   return (
     <>
-      <PageHero eyebrow="How it works" title={<>From form fill to booked meeting in <span className="text-gradient">eight steps</span></>}>
+      <PageHero eyebrow="How it works" title={<>From form fill to booked meeting in <span className="editorial-emphasis">eight steps</span></>}>
         Each step is a small agent with one job and a written trace. You can test, tune or switch off any of them.
       </PageHero>
       <Section className="!pt-0"><PipelineFlow /></Section>
@@ -30,7 +30,7 @@ export default function HowItWorks() {
           {STAGES.map((s, i) => (
             <Reveal key={s.id} delay={0.03} className="relative pb-12 last:pb-0">
               <div>
-                <span className="absolute -left-[3.15rem] grid h-10 w-10 place-items-center rounded-2xl bg-primary-500 text-white shadow-lg shadow-primary-500/30"><s.icon className="h-5 w-5" /></span>
+                <span className="absolute -left-[3.15rem] grid h-10 w-10 place-items-center rounded-lg bg-primary-500 text-white shadow-lg shadow-primary-500/30"><s.icon className="h-5 w-5" /></span>
                 <p className="text-sm font-semibold text-primary-600 dark:text-primary-300">Step {i + 1}</p>
                 <h2 className="font-display text-2xl font-semibold">{s.name}</h2>
                 <p className="mt-2 text-muted">{s.text}</p>

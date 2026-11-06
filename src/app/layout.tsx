@@ -1,10 +1,10 @@
 import type { Metadata, Viewport } from "next";
-import { Inter, Space_Grotesk } from "next/font/google";
+import { IBM_Plex_Sans, Instrument_Serif } from "next/font/google";
 import { ThemeProvider } from "next-themes";
 import "./globals.css";
 
-const inter = Inter({ subsets: ["latin"], variable: "--font-inter", display: "swap" });
-const grotesk = Space_Grotesk({ subsets: ["latin"], variable: "--font-grotesk", display: "swap" });
+const plex = IBM_Plex_Sans({ subsets: ["latin"], weight: ["400", "500", "600", "700"], variable: "--font-plex", display: "swap" });
+const serif = Instrument_Serif({ subsets: ["latin"], weight: "400", style: ["normal", "italic"], variable: "--font-editorial", display: "swap" });
 
 export const metadata: Metadata = {
   metadataBase: new URL(process.env.PUBLIC_URL || "http://localhost:3300"),
@@ -13,11 +13,11 @@ export const metadata: Metadata = {
   icons: { icon: "/favicon.svg" },
   openGraph: { title: "Velaroute — the agentic inbound engine", description: "Every inbound lead, to the right rep, in minutes.", images: ["/og.png"] },
 };
-export const viewport: Viewport = { themeColor: [{ media: "(prefers-color-scheme: light)", color: "#f6f6fb" }, { media: "(prefers-color-scheme: dark)", color: "#0d0e16" }] };
+export const viewport: Viewport = { themeColor: [{ media: "(prefers-color-scheme: light)", color: "#f7f6f2" }, { media: "(prefers-color-scheme: dark)", color: "#141413" }] };
 
 export default function RootLayout({ children }: { children: React.ReactNode }) {
   return (
-    <html lang="en" suppressHydrationWarning className={`${inter.variable} ${grotesk.variable}`}>
+    <html lang="en" suppressHydrationWarning className={`${plex.variable} ${serif.variable}`}>
       <body>
         <ThemeProvider attribute="class" defaultTheme="light" enableSystem={false} disableTransitionOnChange>
           {children}

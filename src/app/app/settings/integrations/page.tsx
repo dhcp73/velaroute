@@ -42,20 +42,20 @@ function Inner() {
       {q.get("connected") && <Card className="mb-4 p-4 text-sm">Calendar connected.</Card>}
       {msg && <p className="mb-4 text-sm text-muted" aria-live="polite">Last check: {msg}</p>}
       {cats.map((c) => (
-        <section key={c} className="mb-6">
+        <section key={c} className="mb-9">
           <h2 className="mb-3 text-sm font-semibold uppercase tracking-wide text-faint">{c}</h2>
-          <div className="grid gap-4 md:grid-cols-2 xl:grid-cols-3">
+          <div className="grid gap-3 md:grid-cols-2">
             {(Object.keys(META) as ProviderId[]).filter((id) => META[id].cat === c).map((id) => {
               const m = META[id];
               const i = ws.integrations.find((x) => x.id === id)!;
               return (
-                <Card key={id} className="flex flex-col p-5">
-                  <div className="flex items-center justify-between gap-2"><span className="grid h-10 w-10 place-items-center rounded-2xl bg-surface-2"><m.icon className="h-5 w-5 text-primary-600 dark:text-primary-300" /></span>{i.connected ? <Chip tone={i.keyHint === "sandbox" ? "amber" : "mint"} dot>{i.keyHint === "sandbox" ? "Sandbox" : "Connected"}</Chip> : <Chip>Not connected</Chip>}</div>
+                <Card key={id} className="flex flex-col p-5 sm:p-6">
+                  <div className="flex items-center justify-between gap-2"><span className="grid h-10 w-10 place-items-center rounded-lg bg-surface-2"><span className="font-mono text-sm font-semibold text-ink" aria-hidden>{({ openai: "OA", openrouter: "OR", anthropic: "AN", apollo: "AP", clay: "CL", valyu: "VA", hubspot: "HS", salesforce: "SF", attio: "AT", slack: "SL", google: "GC", microsoft: "MS" })[id]}</span></span>{i.connected ? <Chip tone={i.keyHint === "sandbox" ? "amber" : "mint"} dot>{i.keyHint === "sandbox" ? "Sandbox" : "Connected"}</Chip> : <Chip>Not connected</Chip>}</div>
                   <h3 className="mt-3 font-semibold">{m.name}</h3>
                   <p className="mt-1 flex-1 text-sm text-muted">{m.desc}</p>
                   {i.connected && i.keyHint && <p className="mt-2 text-xs text-faint">Key {i.keyHint}</p>}
                   <div className="mt-4 flex gap-2">
-                    {m.oauth ? <a href={`/api/oauth/${id}/start`} className="inline-flex h-8 items-center rounded-full bg-primary-500 px-3 text-[13px] font-medium text-white hover:bg-primary-600">{i.connected ? "Reconnect" : "Connect"}</a>
+                    {m.oauth ? <a href={`/api/oauth/${id}/start`} className="inline-flex h-8 items-center rounded-md bg-ink px-3 text-[13px] font-medium text-bg hover:opacity-85">{i.connected ? "Reconnect" : "Connect"}</a>
                       : <Button size="sm" variant={i.connected ? "secondary" : "primary"} onClick={() => { setOpen(id); setKey(""); }}>{i.connected ? "Update key" : "Connect"}</Button>}
                     {i.connected && <Button size="sm" variant="ghost" onClick={() => dispatch({ type: "integration.disconnect", id }, { success: `${m.name} disconnected` })}>Disconnect</Button>}
                   </div>

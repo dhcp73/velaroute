@@ -25,7 +25,7 @@ export default function Meetings() {
               const rep = ws.reps.find((r) => r.id === l.meeting!.repId);
               return (
                 <li key={l.id}><Link href={`/app/leads/${l.id}`} className="flex flex-wrap items-center gap-3 px-5 py-4 hover:bg-surface-2 sm:flex-nowrap">
-                  <div className="w-24 shrink-0 rounded-2xl bg-primary-50 p-2 text-center dark:bg-primary-500/10"><p className="text-xs font-medium text-primary-700 dark:text-primary-200">{fmtDate(l.meeting!.start, { weekday: "short", day: "numeric", month: "short" })}</p><p className="font-display text-lg font-semibold">{fmtDate(l.meeting!.start, { hour: "2-digit", minute: "2-digit" })}</p></div>
+                  <div className="w-24 shrink-0 rounded-lg bg-primary-50 p-2 text-center dark:bg-primary-500/10"><p className="text-xs font-medium text-primary-700 dark:text-primary-200">{fmtDate(l.meeting!.start, { weekday: "short", day: "numeric", month: "short" })}</p><p className="font-display text-lg font-semibold">{fmtDate(l.meeting!.start, { hour: "2-digit", minute: "2-digit" })}</p></div>
                   <div className="min-w-0 flex-1"><p className="truncate font-medium">{l.name} <span className="font-normal text-muted">· {l.company || l.domain}</span></p><p className="truncate text-sm text-muted">{l.meeting!.provider} · {ws.settings.meetingMinutes} min</p></div>
                   <span className="flex items-center gap-2"><Avatar name={rep?.name ?? "?"} color={rep?.color} size={26} /><span className="text-sm">{rep?.name}</span></span>
                   <Chip tone={l.meeting!.status === "booked" ? "violet" : l.meeting!.status === "held" ? "mint" : "rose"}>{l.meeting!.status.replace("_", "-")}</Chip>
