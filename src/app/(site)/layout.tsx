@@ -1,0 +1,15 @@
+import { SiteHeader } from "@/components/site/header";
+import { SiteFooter } from "@/components/site/footer";
+import { ChatWidget } from "@/components/site/chat-widget";
+
+export default function SiteLayout({ children }: { children: React.ReactNode }) {
+  return (
+    <div className="flex min-h-dvh flex-col">
+      <a href="#main" className="sr-only focus:not-sr-only focus:fixed focus:left-4 focus:top-4 focus:z-[100] focus:rounded-full focus:bg-surface focus:px-4 focus:py-2">Skip to content</a>
+      <SiteHeader />
+      <main id="main" className="flex-1">{children}</main>
+      <SiteFooter />
+      <ChatWidget />
+    </div>
+  );
+}

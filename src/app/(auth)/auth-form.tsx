@@ -1,6 +1,6 @@
 "use client";
 import Link from "next/link";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { Button, Field, Input } from "@/components/ui";
 
 export function AuthForm({ mode }: { mode: "login" | "signup" }) {
@@ -18,7 +18,8 @@ export function AuthForm({ mode }: { mode: "login" | "signup" }) {
       window.location.href = next && next.startsWith("/app") ? next : "/app";
     } catch { setErr("Network error — try again"); } finally { setBusy(false); }
   };
-  const demo = (email: string, password: string) => setV({ ...v, email, password });
+  const demo = (email: string, password: string) => setV((cur) => ({ ...cur, email, password }));
+  useEffect(() => { if (mode === "login" && new URLSearchParams(location.search).get("demo")) demo("demo@velaroute.dev", "demo1234"); }, [mode]);
   return (
     <div className="w-full">
       <h1 className="font-display text-3xl font-semibold tracking-tight">{mode === "login" ? "Welcome back" : "Start routing in minutes"}</h1>
