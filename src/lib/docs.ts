@@ -3,7 +3,7 @@ import fs from "node:fs";
 import path from "node:path";
 import { marked } from "marked";
 
-export const DOC_ORDER = ["getting-started", "routing", "enrichment", "sla", "integrations", "api", "webhooks", "mcp", "pricing"] as const;
+export const DOC_ORDER = ["getting-started", "routing", "enrichment", "sla", "integrations", "rest-api", "webhooks", "mcp", "pricing"] as const;
 export type Doc = { slug: string; title: string; description: string; html: string; headings: { id: string; text: string }[] };
 
 const dir = path.join(process.cwd(), "src/content/docs");

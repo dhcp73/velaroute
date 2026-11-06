@@ -25,7 +25,7 @@ export default function Developers() {
 
   return (
     <>
-      <PageHeader title="Developers" subtitle="REST API, signed webhooks and an MCP server for your AI tools." actions={<Link href="/docs/api" className="inline-flex h-10 items-center rounded-full border border-line bg-surface px-4 text-sm font-medium hover:bg-surface-2">API reference</Link>} />
+      <PageHeader title="Developers" subtitle="REST API, signed webhooks and an MCP server for your AI tools." actions={<a href="/docs/api" className="inline-flex h-10 items-center rounded-full border border-line bg-surface px-4 text-sm font-medium hover:bg-surface-2">API reference</a>} />
       <Card>
         <CardHeader title="API keys" subtitle="Scoped keys. The full key is shown once — we store only a SHA-256 hash." action={<Button size="sm" icon={<Plus className="h-4 w-4" />} onClick={() => { setKeyModal(true); setPlain(""); setKeyName(""); }}>Create key</Button>} />
         {ws.apiKeys.length === 0 ? <Empty icon={<KeyRound className="h-5 w-5" />} title="No API keys" /> : (

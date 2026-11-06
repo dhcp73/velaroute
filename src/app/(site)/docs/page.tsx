@@ -14,7 +14,7 @@ export default function DocsIndex() {
       <p className="mt-3 max-w-2xl text-lg text-muted">Everything you need to capture, qualify, route and follow up on inbound leads — and to plug Velaroute into your own systems and agents.</p>
       <div className="mt-8 grid gap-4 sm:grid-cols-2">
         <Link href="/docs/getting-started" className="card group flex items-start gap-4 p-6 hover:ring-2 hover:ring-primary-300"><BookOpen className="h-6 w-6 shrink-0 text-primary-500" /><div><h2 className="font-semibold">Start here</h2><p className="mt-1 text-sm text-muted">Route and book your first lead in ten minutes.</p></div></Link>
-        <Link href="/docs/api" className="card group flex items-start gap-4 p-6 hover:ring-2 hover:ring-primary-300"><Code2 className="h-6 w-6 shrink-0 text-primary-500" /><div><h2 className="font-semibold">API reference</h2><p className="mt-1 text-sm text-muted">Interactive OpenAPI 3.1 explorer.</p></div></Link>
+        <a href="/docs/api" className="card group flex items-start gap-4 p-6 hover:ring-2 hover:ring-primary-300"><Code2 className="h-6 w-6 shrink-0 text-primary-500" /><div><h2 className="font-semibold">API reference</h2><p className="mt-1 text-sm text-muted">Interactive OpenAPI 3.1 explorer.</p></div></a>
       </div>
       <h2 className="mt-12 font-display text-2xl font-semibold">Guides</h2>
       <ul className="mt-4 divide-y divide-line rounded-3xl border border-line bg-surface">

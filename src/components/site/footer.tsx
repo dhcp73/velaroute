@@ -19,7 +19,7 @@ export function SiteFooter() {
         {COLS.map((c) => (
           <div key={c.title}>
             <p className="text-sm font-semibold">{c.title}</p>
-            <ul className="mt-3 space-y-2">{c.links.map(([l, h]) => <li key={h}><Link href={h} className="text-sm text-muted hover:text-ink">{l}</Link></li>)}</ul>
+            <ul className="mt-3 space-y-2">{c.links.map(([l, h]) => <li key={h}>{h === "/docs/api" ? <a href={h} className="text-sm text-muted hover:text-ink">{l}</a> : <Link href={h} className="text-sm text-muted hover:text-ink">{l}</Link>}</li>)}</ul>
           </div>
         ))}
       </div>
