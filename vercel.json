@@ -1,0 +1,5 @@
+{
+  "framework": "nextjs",
+  "buildCommand": "STORAGE_MODE=browser next build",
+  "crons": [{ "path": "/api/cron/tick", "schedule": "0 9 * * *" }]
+}
