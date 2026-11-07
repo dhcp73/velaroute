@@ -29,11 +29,11 @@ export const agentActionSchema = z.discriminatedUnion("type", [
   z.object({ type: z.literal("lead.book"), leadId: id, start: z.string().datetime() }),
 ]);
 export type AgentAction = z.infer<typeof agentActionSchema>;
-export const proposalSchema = z.object({ id, title: text, summary: z.string().max(1500), action: agentActionSchema, before: z.string().max(30000), status: z.enum(["pending", "saved", "dismissed"]), href: z.string().max(300).regex(/^\/app(?:\/|$)/) });
+export const proposalSchema = z.object({ id, title: text, summary: z.string().max(1500), action: agentActionSchema, before: z.string().max(30000), status: z.enum(["pending", "saved", "dismissed", "superseded"]), href: z.string().max(300).regex(/^\/app(?:\/|$)/) });
 export type Proposal = z.infer<typeof proposalSchema>;
 export const traceSchema = z.object({ tool: z.string().max(100), thought: z.string().max(400), observation: z.string().max(1500), ok: z.boolean() });
 export type AgentStep = z.infer<typeof traceSchema>;
-export const turnSchema = z.object({ id, request: z.string().max(4000), answer: z.string().max(12000), mode: z.string().max(150), kind: z.enum(["form", "routing", "settings", "read", "help"]), needsClarification: z.boolean(), steps: z.array(traceSchema).max(30), proposals: z.array(proposalSchema).max(8), at: z.string() });
+export const turnSchema = z.object({ id, request: z.string().max(4000), answer: z.string().max(12000), mode: z.string().max(150), kind: z.enum(["form", "routing", "settings", "read", "help"]), needsClarification: z.boolean(), questions: z.array(z.string().max(500)).max(3).optional(), steps: z.array(traceSchema).max(30), proposals: z.array(proposalSchema).max(8), at: z.string() });
 export type AgentTurn = z.infer<typeof turnSchema>;
 export const historySchema = z.array(turnSchema).max(30);
 
@@ -88,4 +88,13 @@ export function confirmedAction(proposal: Proposal, ws: Workspace): Action {
   const action = validateAction(p.action, ws);
   if (targetState(ws, action) !== p.before) throw new Error("This item changed since the proposal. Ask for a fresh draft before saving.");
   return action as Action;
+}
+
+/** New revisions replace pending versions, not already-confirmed history. */
+export function appendCompletedTurn(history: AgentTurn[], turn: AgentTurn): AgentTurn[] {
+  const replaced = (old: Proposal) => turn.proposals.some((next) => {
+    const a = old.action, b = next.action;
+    return a.type === "form.save" && b.type === "form.save" ? a.form.id === b.form.id : a.type === "rule.save" && b.type === "rule.save" ? !!a.rule.id && a.rule.id === b.rule.id : a.type === "settings.save" && b.type === "settings.save" ? Object.keys(a.settings).every((k) => k in b.settings) : false;
+  });
+  return [...history.map((h) => ({ ...h, proposals: h.proposals.map((p) => p.status === "pending" && replaced(p) ? { ...p, status: "superseded" as const } : p) })), turn].slice(-30);
 }

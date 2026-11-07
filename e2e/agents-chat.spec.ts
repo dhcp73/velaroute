@@ -1,14 +1,25 @@
 import { test, expect, type Page } from "@playwright/test";
 import fs from "node:fs/promises";
+import { AgentEventDecoder } from "@/lib/agent/stream";
+import type { Response as BrowserResponse } from "@playwright/test";
 import type { AgentTurn } from "@/lib/agent/contracts";
 const baseURL = process.env.BASE_URL || "http://localhost:3307";
 const local = /^https?:\/\/(localhost|127\.0\.0\.1)(:|\/|$)/.test(baseURL);
+async function responseTurn(response: BrowserResponse): Promise<AgentTurn> {
+  const body = await response.text();
+  if (response.headers()["content-type"]?.includes("text/event-stream")) {
+    const done = new AgentEventDecoder().push(body).find((e) => e.type === "done");
+    if (done?.type !== "done") throw Error("Stream did not complete");
+    return done.turn;
+  }
+  return JSON.parse(body).turn;
+}
 async function send(page: Page, request: string): Promise<AgentTurn> {
   await page.getByRole("textbox", { name: "Ask the agent", exact: true }).fill(request);
   const response = page.waitForResponse((r) => r.url().endsWith("/api/app/agent") && r.request().method() === "POST");
   await page.getByRole("button", { name: "Send request", exact: true }).click();
   const r = await response; expect(r.status()).toBe(200);
-  return (await r.json()).turn;
+  return responseTurn(r);
 }
 async function savedInSnapshot(page: Page, kind: "forms" | "rules", id: string) {
   return page.evaluate(({ kind, id }) => Object.keys(localStorage).filter((k) => k.startsWith("vr:ws:")).some((k) => JSON.parse(localStorage.getItem(k)!)[kind]?.some((item: { id: string }) => item.id === id)), { kind, id });
@@ -28,11 +39,12 @@ for (const width of [375, 1280]) test(`Agents builder connects confirmed forms, 
 
   const response = page.waitForResponse((r) => r.url().endsWith("/api/app/agent") && r.request().method() === "POST");
   await page.getByRole("button", { name: "Build a demo form", exact: true }).click();
-  const formTurn: AgentTurn = (await (await response).json()).turn;
+  const formTurn = await responseTurn(await response);
   const formAction = formTurn.proposals[0].action;
   if (formAction.type !== "form.save") throw Error("Expected form proposal");
   const formCard = page.locator("[data-agent-proposal]").last();
   await expect(formCard).toContainText("Work email"); await expect(formCard).toContainText("Budget");
+  await page.locator("[data-agent-turn]").last().locator("summary").click();
   await expect(page.getByText("Action · list_forms", { exact: true })).toBeVisible();
   expect(await savedInSnapshot(page, "forms", formAction.form.id)).toBe(false);
   await page.evaluate(() => window.scrollTo(0, 0));

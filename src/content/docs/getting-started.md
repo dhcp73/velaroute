@@ -25,7 +25,9 @@ Open [Agents](/app/agents) to describe a workflow instead of starting from a bla
 - “Apollo then Valyu, 50 cents per lead, $100 per month.”
 - “Set SLA to 5 minutes and guard block at 80 and review at 40.”
 
-The builder inspects your actual forms, reps and settings, then shows tool activity and a structured proposal. The Thought/Action/Observation cards contain short action summaries, not hidden model reasoning. **Confirm & save** applies the proposal through the same workspace actions as the manual builders. Nothing changes just because the agent proposes it. Discarded proposals do nothing; stale proposals ask for a fresh review instead of overwriting manual edits.
+The builder inspects your actual forms, reps and settings, then shows tool activity and a structured proposal. Thinking, reading, building and review statuses stream as the actual tools run. Completed steps and previews arrive before the final reply; live models also stream answer text. Stop discards the unfinished turn, and only completed conversations are stored. The Thought/Action/Observation cards contain short action summaries, not hidden model reasoning. **Confirm & save** applies the proposal through the same workspace actions as the manual builders. Nothing changes just because the agent proposes it. Discarded proposals do nothing; stale proposals ask for a fresh review instead of overwriting manual edits.
+
+The reply describes the actual draft and asks a few refinement questions. Try “Call it Product demo, add phone and role, booking off” to revise the same pending form. A newer revision replaces its older pending preview; saying “yes” in chat is not a save or publication.
 
 Confirmed forms appear in **Forms** as drafts; open the editor to check branching and publish. Confirmed routing rules appear in **Routing** and settings in **Settings**. The eight pipeline agents remain below the chat with run counts and configure links. Your current conversation and proposal statuses stay in this browser across reloads.
 
