@@ -46,7 +46,7 @@ for (const width of [375, 1280]) {
     await page.screenshot({ path: `${screens}/how-it-works-${width}.png`, fullPage: true });
     expect(await page.evaluate(() => document.documentElement.scrollWidth <= innerWidth + 1)).toBeTruthy();
   });
-  test(`compact editor chrome, command search and routing assistant at ${width}px`, async ({ page, context }) => {
+  test(`right-aligned editor toolbar, command search and routing assistant at ${width}px`, async ({ page, context }) => {
     test.skip(!local, "Only mutate isolated local demo storage");
     await fs.mkdir(screens, { recursive: true });
     await page.setViewportSize({ width, height: 1000 });
@@ -54,7 +54,14 @@ for (const width of [375, 1280]) {
     await page.goto(baseURL + "/app/forms/frm_demo");
     await expect(page.locator("[data-form-canvas]")).toBeVisible();
     const search = page.getByRole("button", { name: "Search leads and pages", exact: true });
-    expect((await search.boundingBox())!.width).toBeLessThan(180);
+    const searchBox = (await search.boundingBox())!;
+    expect(searchBox.width).toBe(width >= 640 ? 256 : 36);
+    expect(searchBox.height).toBe(36);
+    if (width >= 640) expect(searchBox.x).toBeGreaterThan(width / 2);
+    const themeBox = (await page.getByRole("button", { name: /Switch to .* mode/ }).boundingBox())!;
+    expect(themeBox.x - (searchBox.x + searchBox.width)).toBeGreaterThanOrEqual(0);
+    expect(themeBox.x - (searchBox.x + searchBox.width)).toBeLessThanOrEqual(12);
+    expect(Math.abs((themeBox.y + themeBox.height / 2) - (searchBox.y + searchBox.height / 2))).toBeLessThan(2);
     expect((await page.locator("[data-demo-banner]").boundingBox())!.height).toBeLessThan(50);
     await page.screenshot({ path: `${screens}/form-editor-${width}.png`, fullPage: true });
     await page.getByRole("button", { name: "Dismiss demo storage notice" }).click();

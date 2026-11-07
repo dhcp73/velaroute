@@ -202,10 +202,12 @@ export function AppShell({ children }: { children: ReactNode }) {
         {BROWSER_MODE && showDemo && <div data-demo-banner className="flex items-center justify-center gap-3 border-b border-line bg-surface-2 px-4 py-1 text-[11px] leading-4 text-muted"><span>Demo · Saved in this browser only. No shared database.</span><button type="button" onClick={dismissDemo} aria-label="Dismiss demo storage notice" className="shrink-0 rounded p-1 text-muted hover:bg-line hover:text-ink"><X className="h-3 w-3" /></button></div>}
         <header className="sticky top-0 z-30 flex h-14 items-center gap-2 border-b border-line bg-bg/85 px-4 backdrop-blur-md sm:px-6">
           <button type="button" className="grid h-9 w-9 place-items-center rounded-full hover:bg-surface-2 lg:hidden" onClick={() => setDrawer(true)} aria-label="Open menu"><Menu className="h-5 w-5" /></button>
-          <button type="button" onClick={() => setPalette(true)} aria-label="Search leads and pages" className="inline-flex h-8 shrink-0 items-center gap-2 rounded-lg border border-line bg-surface px-2.5 text-xs text-muted hover:border-primary-300 hover:text-ink">
-            <Search className="h-3.5 w-3.5 shrink-0" /><span className="hidden sm:inline">Search</span><kbd className="hidden rounded border border-line px-1 text-[10px] sm:inline">⌘K</kbd>
-          </button>
-          <div className="ml-auto flex items-center gap-1"><ThemeToggle /><Alerts /><UserMenu /></div>
+          <div className="ml-auto flex items-center gap-1.5 sm:gap-2">
+            <button type="button" onClick={() => setPalette(true)} aria-label="Search leads and pages" aria-keyshortcuts="Meta+K Control+K" className="inline-flex h-9 w-9 shrink-0 items-center justify-center gap-2 rounded-lg border border-line bg-surface text-sm text-muted transition-colors hover:border-primary-400 hover:text-ink sm:w-64 sm:justify-start sm:px-3">
+              <Search className="h-4 w-4 shrink-0" aria-hidden /><span className="hidden sm:inline">Search</span><kbd className="ml-auto hidden rounded border border-line bg-surface-2 px-1.5 text-[10px] leading-5 text-faint sm:inline">⌘K</kbd>
+            </button>
+            <ThemeToggle /><Alerts /><UserMenu />
+          </div>
         </header>
         <main className="mx-auto w-full max-w-[1400px] px-4 py-6 sm:px-6 lg:px-8">{children}</main>
       </div>
