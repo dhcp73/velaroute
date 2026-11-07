@@ -49,7 +49,7 @@ export type Action =
   | { type: "rule.move"; ruleId: string; dir: -1 | 1 }
   | { type: "route.test"; sample: { email: string; title?: string; answers?: Record<string, string> } }
   | { type: "form.create"; name: string }
-  | { type: "form.save"; form: Form }
+  | { type: "form.save"; form: Form; create?: boolean }
   | { type: "form.delete"; formId: string }
   | { type: "account.save"; account: Partial<Account> & { domain: string; name: string; ownerId: string } }
   | { type: "account.delete"; accountId: string }
@@ -174,8 +174,11 @@ export async function runAction(ws: Workspace, a: Action, actor: string, now = n
       const stepIds = new Set(f.steps.map((s) => s.id));
       for (const r of f.logic) if (r.goto !== "submit" && !stepIds.has(r.goto)) throw new ActionError("A branching rule points to a step that no longer exists");
       const i = ws.forms.findIndex((x) => x.id === f.id);
-      if (i === -1) throw new ActionError("Form not found");
-      ws.forms[i] = { ...ws.forms[i], ...f };
+      if (i === -1 && !a.create) throw new ActionError("Form not found");
+      if (i !== -1 && a.create) throw new ActionError("Form already exists");
+      if (ws.forms.some((x) => x.slug === f.slug && x.id !== f.id)) throw new ActionError("Form URL already exists");
+      if (i === -1) ws.forms.unshift({ ...f, status: "draft", submissions: 0, views: 0 });
+      else ws.forms[i] = { ...ws.forms[i], ...f };
       audit("forms", `Saved form “${f.name}”`);
       break;
     }

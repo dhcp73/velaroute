@@ -3,7 +3,8 @@ import Link from "next/link";
 import { useMemo } from "react";
 import { Bot, Building2, CalendarCheck, Database, Radar, ShieldCheck, Sparkles, Split, Timer } from "lucide-react";
 import { useWs } from "@/components/app/workspace";
-import { Loading, PageHeader } from "@/components/app/shell";
+import { Loading } from "@/components/app/shell";
+import { AgentChat } from "@/components/app/agent-chat";
 import { Card, Chip } from "@/components/ui";
 import { money } from "@/components/app/format";
 
@@ -36,22 +37,21 @@ export default function Agents() {
   ] as const;
   return (
     <>
-      <PageHeader title="Agents" subtitle="Eight small agents run every inbound lead end to end. Each one is explainable — open any lead to see its trace." />
-      <div className="grid gap-4 md:grid-cols-2 xl:grid-cols-4">
-        {agents.map((a) => {
-          const s = stats[a.id as keyof typeof stats];
-          return (
-            <Card key={a.id} className="flex flex-col p-5">
-              <div className="flex items-center justify-between"><span className="grid h-10 w-10 place-items-center rounded-lg bg-primary-100 text-primary-700 dark:bg-primary-500/15 dark:text-primary-200"><a.icon className="h-5 w-5" /></span><Chip tone="mint" dot>Running</Chip></div>
-              <h2 className="mt-4 font-semibold">{a.name}</h2>
-              <p className="mt-1 flex-1 text-sm text-muted">{a.does}</p>
-              <div className="mt-4 rounded-lg bg-surface-2 p-3 text-xs"><p className="font-display text-xl font-semibold text-ink">{s.runs.toLocaleString()}</p><p className="text-muted">runs · {s.out}</p></div>
-              <div className="mt-3 flex items-center justify-between gap-2 text-xs"><span className="truncate text-faint">{a.cfg}</span><Link href={a.href} className="shrink-0 font-medium text-primary-600 hover:underline dark:text-primary-300">Configure</Link></div>
-            </Card>
-          );
-        })}
-      </div>
-      <Card className="mt-4 flex flex-wrap items-center gap-4 p-5">
+      <AgentChat />
+      <section className="mx-auto max-w-4xl" aria-label="Pipeline agents">
+        <div className="mb-4"><h2 className="text-base font-semibold tracking-tight">Your pipeline agents</h2><p className="mt-1 text-xs text-muted">Eight connected stages. They run when leads arrive — configure them here or describe a change above.</p></div>
+        <div className="overflow-hidden rounded-xl border border-line bg-surface">
+          {agents.map((a) => {
+            const s = stats[a.id as keyof typeof stats];
+            return <Link key={a.id} href={a.href} aria-label={`Configure ${a.name}`} className="grid grid-cols-[auto_minmax(0,1fr)_auto] items-center gap-3 border-b border-line px-4 py-3.5 last:border-b-0 hover:bg-surface-2 sm:gap-4 sm:px-5">
+              <span className="grid h-9 w-9 place-items-center rounded-lg bg-surface-2 text-muted"><a.icon className="h-4 w-4" /></span>
+              <div className="min-w-0"><div className="flex flex-wrap items-center gap-2"><h3 className="text-sm font-medium">{a.name}</h3><Chip tone="slate" dot>Active</Chip></div><p className="mt-1 break-words text-xs leading-relaxed text-muted">{a.cfg}</p></div>
+              <div className="text-right" title={s.out}><p className="text-sm font-medium tabular-nums">{s.runs.toLocaleString()}</p><p className="text-[10px] text-faint">runs</p><span className="mt-1 block text-[10px] font-medium text-primary-600 dark:text-primary-300">Configure ↗</span></div>
+            </Link>;
+          })}
+        </div>
+      </section>
+      <Card className="mx-auto mt-5 max-w-4xl flex flex-wrap items-center gap-4 p-5">
         <Bot className="h-6 w-6 text-primary-500" />
         <p className="min-w-0 flex-1 text-sm text-muted">Agents also run from your own AI tools: connect any MCP client to <code className="rounded bg-surface-2 px-1.5 py-0.5 text-ink">/api/mcp</code> to list leads, explain routing, find SLA breaches and book meetings.</p>
         <Link href="/app/settings/developers#mcp" className="text-sm font-medium text-primary-600 hover:underline dark:text-primary-300">MCP setup</Link>
