@@ -1,0 +1,87 @@
+import { test, expect } from "@playwright/test";
+import fs from "node:fs";
+
+const base = process.env.BASE_URL || "http://localhost:3311";
+const local = /^https?:\/\/(localhost|127\.0\.0\.1)(:|\/|$)/.test(base);
+
+for (const width of [375, 1280]) {
+  test(`enterprise form surfaces and controls at ${width}px`, async ({ page, context }) => {
+    test.skip(!local, "Mutating QA is restricted to an isolated local workspace");
+    await page.setViewportSize({ width, height: 900 });
+    expect((await context.request.post(`${base}/api/auth/login`, { data: { email: "demo@velaroute.dev", password: "demo1234" } })).ok()).toBeTruthy();
+    await page.goto(`${base}/app/forms/frm_demo`);
+    await expect(page.getByRole("textbox", { name: "Form name", exact: true })).toBeVisible();
+    await page.getByRole("textbox", { name: "Form name", exact: true }).fill("Book a demo");
+    if (await page.getByRole("button", { name: "Save", exact: true }).isEnabled()) {
+      await page.getByRole("button", { name: "Save", exact: true }).click();
+      await expect(page.getByRole("button", { name: "Save", exact: true })).toBeDisabled();
+    }
+    await page.evaluate(() => document.fonts.ready);
+    await page.addStyleTag({ content: "nextjs-portal { display: none !important; }" });
+    fs.mkdirSync("reports/screens", { recursive: true });
+    await page.screenshot({ path: `reports/screens/form-editor-enterprise-${width}.png`, fullPage: true });
+    expect(await page.evaluate(() => document.documentElement.scrollWidth <= innerWidth + 1)).toBeTruthy();
+    const first = page.locator(".builder-field").first();
+    await expect(first.getByRole("textbox", { name: "Field label", exact: true })).toHaveValue("Full name");
+    await expect(first.locator("details")).not.toHaveAttribute("open", "");
+    await first.locator("summary").click();
+    await expect(first.getByText("Field ID")).toBeVisible();
+    await first.getByRole("checkbox", { name: "Required" }).uncheck();
+    await expect(first.getByRole("checkbox")).not.toBeChecked();
+    await first.getByRole("checkbox").check();
+    await first.getByRole("combobox", { name: "Field type" }).selectOption("textarea");
+    await expect(page.locator(".hosted-form textarea")).toHaveCount(1);
+    await first.getByRole("combobox", { name: "Field type" }).selectOption("text");
+    await first.getByRole("button", { name: "Move field down" }).click();
+    await expect(page.locator(".builder-field").first().getByRole("textbox", { name: "Field label", exact: true })).toHaveValue("Work email");
+    await page.locator(".builder-field").nth(1).getByRole("button", { name: "Move field up" }).click();
+    const choice = page.locator(".builder-field").nth(3);
+    await choice.getByRole("button", { name: "Add option", exact: true }).click();
+    await choice.getByRole("textbox", { name: "Option 5", exact: true }).fill("Custom enterprise option");
+    await expect(page.locator(".hosted-form").getByRole("radio", { name: "Custom enterprise option" })).toBeVisible();
+    await choice.getByRole("button", { name: "Remove option 5", exact: true }).click();
+    await page.getByRole("switch", { name: "Instant booking" }).click();
+    await expect(page.getByRole("switch", { name: "Instant booking" })).toHaveAttribute("aria-checked", "false");
+    await page.getByRole("switch", { name: "Instant booking" }).click();
+    await page.getByRole("button", { name: "Add field", exact: true }).first().click();
+    await expect(page.locator(".builder-field").nth(4).getByRole("textbox", { name: "Field label", exact: true })).toHaveValue("New question");
+    await page.locator(".builder-field").nth(4).getByRole("button", { name: "Remove field" }).click();
+    await page.getByRole("button", { name: "Add step", exact: true }).click();
+    await expect(page.getByRole("textbox", { name: "Step 5 title", exact: true })).toHaveValue("New step");
+    await page.getByRole("button", { name: "Delete step", exact: true }).last().click();
+    await page.getByRole("tab", { name: /Branching/ }).click();
+    await expect(page.getByRole("heading", { name: "Branching rules" })).toBeVisible();
+    await page.getByRole("button", { name: "Add rule", exact: true }).click();
+    await expect(page.getByRole("combobox", { name: "On step", exact: true })).toHaveCount(6);
+    await page.getByRole("button", { name: "Remove rule", exact: true }).last().click();
+    await page.getByRole("tab", { name: "Share & embed" }).click();
+    await expect(page.getByRole("textbox", { name: "Hosted link" })).toHaveValue(`${base}/f/ws_demo/book-a-demo`);
+    await expect(page.getByRole("textbox", { name: "Embed on your site" })).toContainText("iframe");
+    await page.getByRole("textbox", { name: "Form name", exact: true }).fill("Book a demo — enterprise QA");
+    await page.getByRole("button", { name: "Save", exact: true }).click();
+    await expect(page.getByRole("button", { name: "Save", exact: true })).toBeDisabled();
+    await page.getByRole("textbox", { name: "Form name", exact: true }).fill("Book a demo");
+    await page.getByRole("button", { name: "Save", exact: true }).click();
+    await expect(page.getByRole("button", { name: "Save", exact: true })).toBeDisabled();
+    await page.goto(`${base}/f/ws_demo/book-a-demo`);
+    await expect(page.getByRole("heading", { name: "Tell us about you" })).toBeVisible();
+    await page.evaluate(() => document.fonts.ready);
+    await page.addStyleTag({ content: "nextjs-portal { display: none !important; }" });
+    await page.screenshot({ path: `reports/screens/public-form-enterprise-${width}.png`, fullPage: true });
+    expect(await page.evaluate(() => document.documentElement.scrollWidth <= innerWidth + 1)).toBeTruthy();
+    await expect(page.getByLabel("Full name", { exact: false })).toHaveCSS("min-height", "48px");
+    await page.getByRole("button", { name: "Continue", exact: true }).click();
+    await expect(page.getByText("Full name is required", { exact: true })).toBeVisible();
+    await page.getByLabel("Full name", { exact: false }).fill("Enterprise QA");
+    await page.getByLabel("Work email", { exact: false }).fill(`qa${width}@northwind.io`);
+    await page.getByRole("radio", { name: "1–49", exact: true }).click();
+    await page.getByRole("button", { name: "Continue", exact: true }).click();
+    await expect(page.getByRole("heading", { name: "What are you hoping to fix?" })).toBeVisible();
+    await page.getByRole("button", { name: "Back", exact: true }).click();
+    await expect(page.getByLabel("Full name", { exact: false })).toHaveValue("Enterprise QA");
+    await page.getByRole("button", { name: "Continue", exact: true }).click();
+    await page.getByRole("radio", { name: "Round robin", exact: true }).click();
+    await page.getByRole("button", { name: "Submit & pick a time", exact: true }).click();
+    await expect(page.getByRole("heading", { name: /Thanks/ })).toBeVisible();
+  });
+}

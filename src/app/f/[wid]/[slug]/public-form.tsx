@@ -16,10 +16,10 @@ export function PublicForm({ wid, slug, initial, workspace, embed }: { wid: stri
   }, [wid, slug]);
   if (!ready) return <div className="min-h-dvh bg-bg" />;
   return (
-    <div className={embed ? "bg-transparent p-2" : "relative min-h-dvh overflow-hidden bg-bg px-4 py-10"}>
-      <main className="relative mx-auto w-full max-w-xl">
-        {!embed && <p className="mb-6 text-center text-sm font-medium text-muted">{workspace}</p>}
-        <div className="card p-6 shadow-xl shadow-primary-500/5 sm:p-8">
+    <div className={embed ? "bg-transparent p-2" : "public-form-page relative min-h-dvh bg-white px-4 py-8 sm:py-16"}>
+      <main className="relative mx-auto w-full max-w-[560px]">
+        {!embed && <p className="mb-6 text-center text-sm font-semibold tracking-wide text-muted">{workspace}</p>}
+        <div className="public-form-card rounded-2xl border border-[#e5e7eb] bg-white p-6 shadow-sm sm:p-10">
           {!form ? <p className="text-center text-sm text-muted">This form doesn&apos;t exist or was removed.</p> : form.status !== "live" ? <p className="text-center text-sm text-muted">This form isn&apos;t accepting responses right now.</p> : <HostedForm form={form} wid={wid} />}
         </div>
         {!embed && <p className="mt-6 flex items-center justify-center gap-1.5 text-xs text-faint"><LogoMark className="h-4 w-4" />Powered by Velaroute</p>}

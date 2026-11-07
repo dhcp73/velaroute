@@ -24,11 +24,11 @@ export default function Forms() {
       {ws.forms.length === 0 ? <Card><Empty icon={<FileText className="h-5 w-5" />} title="No forms yet" action={<Button onClick={() => setOpen(true)}>Create a form</Button>} /></Card> : (
         <div className="grid gap-4 md:grid-cols-2 xl:grid-cols-3">
           {ws.forms.map((f) => (
-            <Link key={f.id} href={`/app/forms/${f.id}`} className="card group flex flex-col p-5 transition-shadow hover:shadow-lg hover:shadow-primary-500/5">
-              <div className="flex items-center justify-between gap-2"><span className="grid h-10 w-10 place-items-center rounded-lg bg-sky-soft text-sky-700 dark:bg-sky-500/15 dark:text-sky-200"><FileText className="h-5 w-5" /></span><Chip tone={f.status === "live" ? "mint" : "slate"} dot>{f.status}</Chip></div>
-              <h2 className="mt-4 font-semibold group-hover:text-primary-700 dark:group-hover:text-primary-200">{f.name}</h2>
+            <Link key={f.id} href={`/app/forms/${f.id}`} className="card group flex flex-col p-6 transition-colors hover:border-primary-300">
+              <div className="flex items-center justify-between gap-2"><span className="grid h-10 w-10 place-items-center rounded-lg bg-surface-2 text-muted"><FileText className="h-5 w-5" /></span><Chip tone={f.status === "live" ? "mint" : "slate"} dot>{f.status}</Chip></div>
+              <h2 className="mt-5 text-lg font-bold tracking-tight group-hover:text-primary-700 dark:group-hover:text-primary-200">{f.name}</h2>
               <p className="mt-1 text-sm text-muted">{f.steps.length} step{f.steps.length === 1 ? "" : "s"} · {f.logic.length} branching rule{f.logic.length === 1 ? "" : "s"}{f.showBooking ? " · instant booking" : ""}</p>
-              <div className="mt-4 grid grid-cols-3 gap-2 rounded-lg bg-surface-2 p-3 text-center text-xs">
+              <div className="mt-6 grid grid-cols-3 gap-2 border-y border-line py-5 text-center text-xs">
                 <div><p className="font-display text-lg font-semibold">{f.submissions}</p><p className="text-muted">submissions</p></div>
                 <div><p className="font-display text-lg font-semibold">{ws.leads.filter((l) => l.formId === f.id && l.meeting).length}</p><p className="text-muted">booked</p></div>
                 <div><p className="font-display text-lg font-semibold">{f.views ? Math.round((f.submissions / f.views) * 100) : 0}%</p><p className="text-muted">conversion</p></div>

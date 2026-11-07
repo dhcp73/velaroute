@@ -1,4 +1,5 @@
 "use client";
+import "./form-surfaces.css";
 import { useEffect, useMemo, useRef, useState } from "react";
 import { ArrowLeft, ArrowRight, CalendarCheck, CheckCircle2, Loader2 } from "lucide-react";
 import type { Form, Workspace } from "@/lib/engine/types";
@@ -65,7 +66,7 @@ export function HostedForm({ form, wid, preview = false, onSubmitted }: { form: 
 
   if (result) {
     return (
-      <div className="text-center" aria-live="polite">
+      <div className="hosted-form text-center" aria-live="polite">
         <span className="mx-auto grid h-14 w-14 place-items-center rounded-full bg-emerald-100 text-emerald-600 dark:bg-emerald-500/15 dark:text-emerald-300"><CheckCircle2 className="h-7 w-7" /></span>
         {booked ? (
           <>
@@ -96,39 +97,41 @@ export function HostedForm({ form, wid, preview = false, onSubmitted }: { form: 
   }
 
   return (
-    <form onSubmit={(e) => { e.preventDefault(); void advance(); }} noValidate>
-      <div className="mb-5 flex items-center gap-2" aria-hidden>{form.steps.map((s, i) => <span key={s.id} className={cn("h-1.5 flex-1 rounded-full transition-colors", i <= idx ? "bg-primary-500" : "bg-line")} />)}</div>
-      <h2 className="font-display text-xl font-semibold">{step.title}</h2>
-      <div className="mt-4 grid gap-4">
+    <form className="hosted-form" onSubmit={(e) => { e.preventDefault(); void advance(); }} noValidate>
+      <div className="mb-6 flex items-center gap-2" aria-hidden>{form.steps.map((s, i) => <span key={s.id} className={cn("h-1.5 flex-1 rounded-full transition-colors", i <= idx ? "bg-primary-500" : "bg-line")} />)}</div>
+      <p className="mb-2 text-xs font-semibold tracking-wide text-muted">Step {idx + 1} of {form.steps.length}</p>
+      <h2 className="font-display text-2xl font-bold leading-snug tracking-tight">{step.title}</h2>
+      <p className="mt-2 text-sm leading-relaxed text-muted">{step.fields.some((f) => f.required) ? "Fields marked * are required." : "Complete the details below to continue."}</p>
+      <div className="mt-7 grid gap-6">
         {step.fields.map((f) => {
           const id = `f-${form.id}-${f.id}`;
           const err = errors[f.id];
           return (
             <div key={f.id}>
-              <label htmlFor={f.type === "buttons" ? undefined : id} id={`${id}-l`} className="label">{f.label}{f.required && <span className="text-rose-500"> *</span>}</label>
+              <label htmlFor={f.type === "buttons" ? undefined : id} id={`${id}-l`} className="label hosted-label">{f.label}{f.required && <span className="text-rose-500"> *</span>}</label>
               {f.type === "buttons" ? (
-                <div role="radiogroup" aria-labelledby={`${id}-l`} className="grid grid-cols-2 gap-2">
-                  {(f.options ?? []).map((o) => <button key={o} type="button" role="radio" aria-checked={answers[f.id] === o} onClick={() => set(f.id, o)} className={cn("rounded-xl border px-3 py-2.5 text-sm font-medium transition-colors", answers[f.id] === o ? "border-primary-500 bg-primary-50 text-primary-900 dark:bg-primary-500/15 dark:text-primary-100" : "border-line hover:bg-surface-2")}>{o}</button>)}
+                <div role="radiogroup" aria-labelledby={`${id}-l`} aria-required={!!f.required} aria-invalid={!!err} aria-describedby={err ? `${id}-error` : undefined} className="grid grid-cols-2 gap-2.5">
+                  {(f.options ?? []).map((o) => <button key={o} type="button" role="radio" aria-checked={answers[f.id] === o} onClick={() => set(f.id, o)} className={cn("hosted-choice min-h-12 rounded-lg border px-3 py-3 text-sm font-semibold transition-colors", answers[f.id] === o ? "border-primary-500 bg-primary-50 text-primary-900 dark:bg-primary-500/15 dark:text-primary-100" : "border-line hover:bg-surface-2")}>{o}</button>)}
                 </div>
               ) : f.type === "select" ? (
-                <select id={id} className="input h-10" value={answers[f.id] ?? ""} onChange={(e) => set(f.id, e.target.value)}><option value="">Choose…</option>{(f.options ?? []).map((o) => <option key={o}>{o}</option>)}</select>
+                <select id={id} required={f.required} aria-invalid={!!err} aria-describedby={err ? `${id}-error` : undefined} className="input" value={answers[f.id] ?? ""} onChange={(e) => set(f.id, e.target.value)}><option value="">Choose…</option>{(f.options ?? []).map((o) => <option key={o}>{o}</option>)}</select>
               ) : f.type === "textarea" ? (
-                <textarea id={id} className="input min-h-24" value={answers[f.id] ?? ""} placeholder={f.placeholder} onChange={(e) => set(f.id, e.target.value)} />
+                <textarea id={id} required={f.required} aria-invalid={!!err} aria-describedby={err ? `${id}-error` : undefined} className="input min-h-24" value={answers[f.id] ?? ""} placeholder={f.placeholder} onChange={(e) => set(f.id, e.target.value)} />
               ) : f.type === "checkbox" ? (
-                <label className="flex items-center gap-2 text-sm"><input id={id} type="checkbox" className="h-4 w-4 accent-primary-500" checked={answers[f.id] === "yes"} onChange={(e) => set(f.id, e.target.checked ? "yes" : "")} />Yes</label>
+                <label className="flex items-center gap-2 text-sm"><input id={id} type="checkbox" required={f.required} aria-invalid={!!err} aria-describedby={err ? `${id}-error` : undefined} className="h-4 w-4 accent-primary-500" checked={answers[f.id] === "yes"} onChange={(e) => set(f.id, e.target.checked ? "yes" : "")} />Yes</label>
               ) : (
-                <input id={id} className="input" type={f.type === "email" ? "email" : f.type === "number" ? "number" : "text"} value={answers[f.id] ?? ""} placeholder={f.placeholder} autoComplete={f.type === "email" ? "email" : f.id === "name" ? "name" : f.id === "company" ? "organization" : undefined} onChange={(e) => set(f.id, e.target.value)} aria-invalid={!!err} />
+                <input id={id} required={f.required} aria-describedby={err ? `${id}-error` : undefined} className="input" type={f.type === "email" ? "email" : f.type === "number" ? "number" : "text"} value={answers[f.id] ?? ""} placeholder={f.placeholder} autoComplete={f.type === "email" ? "email" : f.id === "name" ? "name" : f.id === "company" ? "organization" : undefined} onChange={(e) => set(f.id, e.target.value)} aria-invalid={!!err} />
               )}
-              {err && <p className="mt-1 text-xs text-rose-600" role="alert">{err}</p>}
+              {err && <p id={`${id}-error`} className="mt-2 text-xs font-medium text-rose-600" role="alert">{err}</p>}
             </div>
           );
         })}
         <input type="text" tabIndex={-1} autoComplete="off" aria-hidden="true" className="absolute left-[-9999px] h-0 w-0 opacity-0" name="website" value={hp} onChange={(e) => setHp(e.target.value)} />
       </div>
       {serverError && <p className="mt-3 text-sm text-rose-600" role="alert">{serverError}</p>}
-      <div className="mt-6 flex items-center justify-between gap-3">
+      <div className="mt-8 flex items-center justify-between gap-3 border-t border-line pt-6">
         {history.length ? <button type="button" onClick={() => { const h = [...history]; const prev = h.pop()!; setHistory(h); setStepId(prev); }} className="inline-flex items-center gap-1 text-sm font-medium text-muted hover:text-ink"><ArrowLeft className="h-4 w-4" />Back</button> : <span />}
-        <button type="submit" disabled={sending} className="inline-flex h-11 items-center gap-2 rounded-full bg-primary-500 px-6 text-sm font-semibold text-white shadow-sm transition-colors hover:bg-primary-600 disabled:opacity-60">
+        <button type="submit" disabled={sending} className="inline-flex min-h-12 items-center justify-center gap-2 rounded-lg bg-primary-500 px-6 text-sm font-semibold text-white shadow-sm transition-colors hover:bg-primary-600 disabled:opacity-60">
           {sending ? <Loader2 className="h-4 w-4 animate-spin" /> : next === "submit" ? <CalendarCheck className="h-4 w-4" /> : null}
           {next === "submit" ? (form.showBooking ? "Submit & pick a time" : "Submit") : "Continue"}{next !== "submit" && <ArrowRight className="h-4 w-4" />}
         </button>

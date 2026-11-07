@@ -1,0 +1,32 @@
+/* Form-only surface rules: shared inputs, auth and the workspace toolbar stay untouched. */
+.form-builder { max-width: 1440px; margin-inline: auto; }
+.form-builder .form-editor-toolbar { border-bottom: 1px solid var(--line); padding-bottom: 24px; }
+.form-builder .form-name { border-color: transparent; padding-left: 0; letter-spacing: -.025em; font-size: 24px; line-height: 32px; font-weight: 700; }
+.form-builder .form-name:hover, .form-builder .form-name:focus { border-color: var(--line); padding-left: 12px; }
+.form-builder .builder-step { background: var(--surface-2); }
+.form-builder .builder-field { box-shadow: 0 1px 2px rgb(0 0 0 / .025); }
+.form-builder .builder-field .input { border-radius: 8px; letter-spacing: .005em; word-spacing: .04em; }
+.form-builder .builder-field > .input { font-size: 15px; font-weight: 600; }
+.form-builder .builder-step > div:first-child .input { font-size: 15px; font-weight: 600; }
+.form-builder .field-type { width: 154px; flex-shrink: 0; font-size: 13px; }
+.form-builder .field-actions { min-width: 210px; }
+.form-builder .field-actions button { border-radius: 6px; padding: 8px; }
+.form-builder .builder-preview { overflow: hidden; }
+.hosted-form, .public-form-page { --ink: #202329; --muted: #5b626d; --line: #e0e3e8; --surface: #fff; --surface-2: #f7f8fa; color: var(--ink); color-scheme: light; }
+.hosted-form { font-family: var(--font-sans); text-align: left; }
+.hosted-form.text-center { text-align: center; }
+.hosted-form .hosted-label { margin-bottom: 9px; color: var(--ink); font-size: 14px; font-weight: 600; line-height: 1.5; letter-spacing: .005em; word-spacing: .04em; }
+.hosted-form .input { min-height: 48px; padding: 12px 14px; border-radius: 8px; font-size: 15px; line-height: 22px; background: #fff; color: #202329; }
+.hosted-form .input::placeholder { color: #87909b; }
+.hosted-form textarea.input { min-height: 120px; resize: vertical; }
+.hosted-form [aria-invalid="true"] { border-color: #e11d48; }
+.hosted-form .hosted-choice { overflow-wrap: anywhere; }
+.hosted-form .hosted-choice[aria-checked="true"] { color: #7d260f; background: #fff5f1; border-color: #cf3f16; box-shadow: 0 0 0 1px #cf3f16; }
+@media (max-width: 639px) {
+  .form-builder .form-editor-toolbar > div:last-child { margin-left: 0; width: 100%; justify-content: flex-end; flex-wrap: wrap; }
+  .form-builder .field-type { width: 100%; }
+  .form-builder .field-actions { width: 100%; }
+  .form-builder .builder-field { padding: 14px; }
+  .public-form-card { padding: 24px 20px; }
+  .hosted-form .input { font-size: 16px; }
+}
